@@ -59,4 +59,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // Run once on page load
     animateOnScroll();
   });
+  document.addEventListener('DOMContentLoaded', function() {
+    // Dropdown functionality for mobile
+    const dropdownBtn = document.querySelector('.dropbtn');
+    const dropdown = document.querySelector('.dropdown');
+    
+    if (dropdownBtn) {
+        dropdownBtn.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                dropdown.classList.toggle('active');
+            }
+        });
+    }
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown') && dropdown.classList.contains('active')) {
+            dropdown.classList.remove('active');
+        }
+    });
+});
   

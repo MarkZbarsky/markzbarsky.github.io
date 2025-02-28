@@ -16,7 +16,16 @@
         <div class="container">
             <a href="index.html" class="logo">Mark Zbarsky</a>
             <ul class="nav-links">
-                <li><a href="index.html" class="active">Projects</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Projects <i class="dropdown-arrow">▼</i></a>
+                    <div class="dropdown-content">
+                        <a href="projects/wind-turbine.html">Wind Turbine</a>
+                        <a href="projects/line-follower.html">Line Follower</a>
+                        <a href="projects/smart-birdfeeder.html">Smart Birdfeeder</a>
+                        <a href="projects/pixie-radio.html">Pixie Radio</a>
+                        <a href="projects/mips-calculator.html">MIPS Calculator</a>
+                    </div>
+                </li>
                 <li><a href="about.html">About</a></li>
             </ul>
             <div class="hamburger">
@@ -26,6 +35,7 @@
             </div>
         </div>
     </nav>
+    
 
     <header class="header">
         <div class="container">
@@ -46,6 +56,7 @@
                         </div>
                         <div class="project-content">
                             <h3>Wind Turbine Sensor Integration</h3>
+                            <p class="project-date">January - May 2024</p>
                             <p>Engineered a data collection system for a prototype Savonius vertical-axis wind turbine, improving efficiency by 15% through sensor monitoring and data analysis.</p>
                             <a href="projects/wind-turbine.html" class="btn">View Project</a>
                         </div>
@@ -57,6 +68,7 @@
                         </div>
                         <div class="project-content">
                             <h3>Line Follower Autonomous Vehicle</h3>
+                            <p class="project-date">September 20, 2024</p>
                             <p>Designed and built an Arduino-powered autonomous vehicle capable of following black lines through complex paths using infrared sensors and a differential drive system.</p>
                             <a href="projects/line-follower.html" class="btn">View Project</a>
                         </div>
@@ -68,6 +80,7 @@
                         </div>
                         <div class="project-content">
                             <h3>Smart Birdfeeder with Computer Vision</h3>
+                            <p class="project-date">August 12, 2024</p>
                             <p>Created a wooden birdfeeder enhanced with a Raspberry Pi, camera, and motion sensor to detect birds and send real-time notifications with photos to a mobile device.</p>
                             <a href="projects/smart-birdfeeder.html" class="btn">View Project</a>
                         </div>
@@ -79,6 +92,7 @@
                         </div>
                         <div class="project-content">
                             <h3>Pixie Radio Kit Assembly</h3>
+                            <p class="project-date">February 26, 2025</p>
                             <p>Assembled a QRP radio transceiver kit, gaining hands-on experience with electronic components, circuit assembly, and RF principles through precise soldering techniques.</p>
                             <a href="projects/pixie-radio.html" class="btn">View Project</a>
                         </div>
@@ -90,6 +104,7 @@
                         </div>
                         <div class="project-content">
                             <h3>MIPS 3×3 Matrix Calculator</h3>
+                            <p class="project-date">September 26, 2024</p>
                             <p>Developed a program in MIPS assembly language that performs multiplication operations on 3×3 matrices, demonstrating low-level programming concepts and memory management.</p>
                             <a href="projects/mips-calculator.html" class="btn">View Project</a>
                         </div>
@@ -103,9 +118,8 @@
         <div class="container">
             <p>&copy; 2024 Mark Zbarsky</p>
             <div class="social-links">
-                <a href="https://github.com/yourusername" target="_blank">GitHub</a>
-                <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
-                <a href="mailto:your.email@example.com">Email</a>
+                <a href="linkedin.com/in/mark-zbarsky-139697265/" target="_blank">LinkedIn</a>
+                <a href="mailto:markzb1483@gmail.com">Email</a>
             </div>
         </div>
     </footer>
