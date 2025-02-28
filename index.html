@@ -3,14 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mark Zbarsky - Portfolio</title>
+    <title>Mark Barsky | Portfolio</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/media-queries.css">
+    <script src="js/script.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <h1>Hello World!</h1>
-    <p>My portfolio website is coming soon...</p>
-    
-    <script src="js/script.js"></script>
+    <header>
+        <div class="container">
+            <h1 class="logo">Mark Barsky</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Projects</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+                <div class="hamburger">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Computer Systems Engineering Student</h1>
+            <p>Building innovative solutions through hardware and software integration</p>
+        </div>
+    </section>
+
+    <main>
+        <section class="projects">
+            <div class="container">
+                <h2>Featured Projects</h2>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/wind_turbine_main.jpg" alt="Wind Turbine Project">
+                    </div>
+                    <div class="project-info">
+                        <h3>Wind Turbine Sensor Integration</h3>
+                        <p>Engineered a data collection system for a prototype Savonius vertical-axis wind turbine, improving efficiency by 15% through sensor monitoring and data analysis.</p>
+                        <a href="projects/wind-turbine.html" class="btn">View Project</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/line_follower_main.jpg" alt="Line Follower Car">
+                    </div>
+                    <div class="project-info">
+                        <h3>Line Follower Autonomous Vehicle</h3>
+                        <p>Designed and built an Arduino-powered autonomous vehicle capable of following black lines through complex paths using infrared sensors and a differential drive system.</p>
+                        <a href="projects/line-follower.html" class="btn">View Project</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/birdfeeder_main.jpg" alt="Smart Birdfeeder">
+                    </div>
+                    <div class="project-info">
+                        <h3>Smart Birdfeeder with Computer Vision</h3>
+                        <p>Created a wooden birdfeeder enhanced with a Raspberry Pi, camera, and motion sensor to detect birds and send real-time notifications with photos to a mobile device.</p>
+                        <a href="projects/smart-birdfeeder.html" class="btn">View Project</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/radio_kit_main.jpg" alt="Pixie Radio Kit">
+                    </div>
+                    <div class="project-info">
+                        <h3>Pixie Radio Kit Assembly</h3>
+                        <p>Assembled a QRP radio transceiver kit, gaining hands-on experience with electronic components, circuit assembly, and RF principles through precise soldering techniques.</p>
+                        <a href="projects/pixie-radio.html" class="btn">View Project</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/mips_calculator_main.jpg" alt="MIPS Matrix Calculator">
+                    </div>
+                    <div class="project-info">
+                        <h3>MIPS 3×3 Matrix Calculator</h3>
+                        <p>Developed a program in MIPS assembly language that performs multiplication operations on 3×3 matrices, demonstrating low-level programming concepts and memory management.</p>
+                        <a href="projects/mips-calculator.html" class="btn">View Project</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/yourusername" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:your.email@example.com"><i class="fas fa-envelope"></i></a>
+                </div>
+                <p>&copy; 2025 Mark Barsky. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
