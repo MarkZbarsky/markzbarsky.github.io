@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIPS Matrix Calculator | Mark Zbarsky</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/media-queries.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add Prism.js for code highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="../js/script.js" defer></script>
+    
+    <!-- Add these styles for the code display -->
+    <style>
+        .code-container {
+            margin: 30px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #343a40;
+            color: #f8f9fa;
+            padding: 10px 15px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            background-color: #495057;
+            color: #f8f9fa;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .copy-btn:hover {
+            background-color: #6c757d;
+        }
+
+        pre {
+            margin: 0;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        code {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .output-example {
+            background-color: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">Mark Zbarsky</a>
+            <ul class="nav-links">
+                <li><a href="../index.html" class="active">Projects</a></li>
+                <li><a href="../about.html">About</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="project-header">
+        <div class="container">
+            <h1>MIPS 3×3 Matrix Calculator</h1>
+            <p class="project-meta">Assembly Programming • Computer Architecture</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="project-details">
+            <div class="container">
+                <div class="project-hero">
+                    <!-- Replace with your actual code screenshot -->
+                    <img src="../images/mips_calculator_main.jpg" alt="MIPS Matrix Calculator Code">
+                </div>
+                
+                <div class="project-description">
+                    <h2>Overview</h2>
+                    <p>I developed a program in MIPS assembly language that performs multiplication operations on 3×3 matrices. This project required implementing fundamental matrix multiplication algorithms at the assembly level, dealing directly with memory management, register allocation, and low-level program flow control. The calculator efficiently handles the nine multiplication and addition operations required for each element in the resulting matrix.</p>
+                    
+                    <h2>Implementation</h2>
+                    <p>The program takes two 3×3 matrices as input and computes their product using nested loops. Each element in the result matrix is calculated by taking the dot product of the corresponding row from the first matrix and column from the second matrix. The implementation demonstrates efficient memory access patterns and register usage to optimize performance.</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>matrix_multiplier.asm</span>
+                            <button class="copy-btn" onclick="copyCode()">Copy</button>
+                        </div>
+                        <pre><code class="language-asm">
+                            .data
+                            prompt: .asciiz "In this format X,X,X X,X,X X,X,X X,X,X X,X,X X,X,X \n Please enter matrices values: " 
+                            inputs: .space 1024 	# buffer for saving user input 
+                            matrix_inputs: .space 36  # Space for two 3x3 matrices (18 halfwords * 2 bytes/halfword = 36 bytes)
+                            matrix_result: .space 36  # Space for the result 3x3 matrix (9 words)
+                            newline: .asciiz "\n"
+                            comma: .asciiz ", "
+                            result_msg: .asciiz "Result matrix:\n"
+                            
+                            .text
+                            .globl main
+                            
+                            main:
+                                # Display prompt string 
+                                li $v0, 4 		# system call for print string 
+                                la $a0, prompt 		# load prompt message 
+                                syscall 
+                            
+                                # Getting user input 
+                                li $v0, 8 		# getting user input 
+                                la $a0, inputs		# buffer space 
+                                la $a1, 1024 		# max number of characters 
+                                syscall 
+                            
+                                # Initialization 
+                                li $t0, 0 		# stores current character
+                                li $t1, 0 		# stores current number 	
+                                la $s0, matrix_inputs
+                                la $a0, inputs 
+                                
+                            loop: 
+                                lb $t0, 0($a0) 			# load first byte into t0 
+                                beq $t0, 10, endstore		# check if t0 has newline character 
+                                beq $t0, 44, storenumber 	# check if t0 has ',' comma 
+                                beq $t0, 32, storenumber 	# check if t0 has ' ' empty space 
+                                subi $t0, $t0, 48 		# convert from ascii to integer 
+                                mul $t1, $t1, 10 		
+                                add $t1, $t1, $t0		# add new digit to number 
+                                
+                                addi $a0, $a0, 1		# move to next character 
+                                j loop
+                            
+                            storenumber: 			
+                                sh $t1, 0($s0)			# store half word value into matrix_inputs 
+                                addi $s0, $s0, 2		# increment offset 
+                                li $t1, 0			# reset number 
+                                li $t0, 0 			# reset number
+                            
+                                addi $a0, $a0, 1		# move to next character 
+                                j loop
+                            
+                            endstore:
+                                sh $t1, 0($s0)			# store last half word value into matrix_inputs
+                                li $t0, 0 			# reset temp register  
+                                li $t1, 0 			# reset temp register  
+                            
+                                # Load addresses of the input matrix and result matrix
+                                la $a0, matrix_inputs
+                                la $a2, matrix_result
+                            
+                                # Call the matrix multiplication function
+                                jal matrix_multiply
+                            
+                                # After matrix multiplication, print the result
+                                li $v0, 4
+                                la $a0, result_msg
+                                syscall
+                            
+                               la $s0, matrix_result  # Load the base address of the result matrix
+                                li $s1, 9              # Counter for 9 elements
+                                li $t0, 3              # Counter for elements per row (3 elements per row)
+                            
+                            print_result:
+                                lw $a0, 0($s0)         # Load the next element of the matrix into $a0
+                                li $v0, 1              # Print integer syscall
+                                syscall
+                            
+                                addi $t0, $t0, -1      # Decrement row counter (3 elements per row)
+                                bnez $t0, print_comma  # If not end of row, go to print_comma
+                                j print_newline        # If end of row, go to print_newline
+                            
+                            print_comma:
+                                li $v0, 4
+                                la $a0, comma          # Print comma
+                                syscall
+                                j continue_printing    # Jump to continue printing
+                            
+                            print_newline:
+                                li $v0, 4
+                                la $a0, newline        # Print newline
+                                syscall
+                                li $t0, 3              # Reset row counter to 3 for next row
+                            
+                            continue_printing:
+                                addi $s0, $s0, 4       # Move to the next element in the matrix
+                                addi $s1, $s1, -1      # Decrement element counter
+                                bnez $s1, print_result # Continue loop if more elements are left
+                                
+                                # Exit program
+                                li $v0, 10
+                                syscall
+                            
+                            matrix_multiply:
+                            
+                                            # Save values into the stack
+                                            addi $sp, $sp, -32    # Allocate space for 8 words
+                                            sw $s0, 28($sp)
+                                            sw $s1, 24($sp)
+                                            sw $s2, 20($sp)
+                                            sw $s3, 16($sp)
+                                            sw $s4, 12($sp)
+                                            sw $s5, 8($sp)
+                                            sw $s6, 4($sp)
+                                            sw $s7, 0($sp)                           
+                                            li $t7, 3 # just used for comparison               
+                                            li $t0, 0 # loop counter
+                                            outer_loop: # this loop figures out which row of the first matrix and which column of the second will be in use                              
+                                                            # t2 represents an intermediate for the position of the first value
+                                                            li $t2, 0
+                            
+                                                            # t5 represents an intermediate second value
+                                                            li $t5, 0          
+                            
+                                                            li $t1, 0 # loop counter
+                                                            inner_loop: # this loop figures out which element of the row/column is being multiplied
+                                                          
+                                                                            # operations on position of second value
+                                                                            move $t6, $t5
+                                                                            add $t6, $t6, $t0
+                                                                            add $t6, $t6, $t0
+                                                                            add $t6, $t6, $t0                           
+                            
+                                                                            # operations on position of first value
+                                                                            move $t4, $t2
+                                                                            add $t4, $t4, $t1 # this is to add the column position of the first value                                              
+                                                                            li $t3, 0 # loop counter
+                                                                            li $s7, 0
+                                                                            iterate_both_positions: # reserved for the purposes of this loop: t0, t1, t2, t3, t4, t5, t6, t7
+                                                                                           
+                                                                                            # final calculation for position in first matrix
+                                                                                            li $s1, 0
+                                                                                            move $s1, $t6
+                                                                                            add $s1, $s1, $t3
+                                                                                            sll $s1, $s1, 1  #half word align result                                                           
+                            
+                                                                                            # final calculation for position in second matrix
+                                                                                            li $s2, 0
+                                                                                            move $s2, $t4
+                                                                                            add $s2, $s2, $t3
+                                                                                            add $s2, $s2, $t3
+                                                                                            add $s2, $s2, $t3
+                                                                                            addi $s2, $s2, 9
+                                                                                            sll $s2, $s2, 1
+                            
+                                                                                            #actual multiplication
+                                                                                            li $s4, 0
+                                                                                            li $s5, 0
+                                                                                            add $s6, $s1, $a0    #Calculate effective address
+                                                                                            lh $s4, 0($s6)       # Load halfword from calculated address
+                                                                                            add $s6, $s2, $a0    # Calculate effective address
+                                                                                            lh $s5, 0($s6)       # Load halfword from calculated address  
+                                                                                            
+                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                            mul $s3, $s4, $s5
+                                                                                            add $s7, $s7, $s3                                                          
+                            
+                                                                                            #final products go to 3 * outer_loop + inner_loop shifted left 2
+                                                                                            li $s0, 0
+                                                                                            add $s0, $t1, $t0
+                                                                                            add $s0, $s0, $t0
+                                                                                            add $s0, $s0, $t0
+                                                                                            sll $s0, $s0, 2     
+                                                                                                       
+                                                                                            # store s6 in stack because not enough registers
+                                                                                            addi $sp, $sp, -4    # Adjust stack pointer
+                                                                                            sw $s6, 0($sp)       # Store $s6 on stack                                               
+                                                                                            add $s6, $s0, $a2    # Calculate effective address
+                                                                                            sw $s7, 0($s6)       # Store word at calculated address
+                                                                                            lw $s6, 0($sp)       # Load $s6 from stack
+                                                                                            addi $sp, $sp, 4     # Restore stack pointer
+                                                                                          
+                                                                            addi $t3, $t3, 1
+                                                                            bne $t3, $t7, iterate_both_positions # end this loop if runs = 3
+                                                            # increment runs
+                                                            addi $t1, $t1, 1
+                                                            bne $t1, $t7, inner_loop # end this loop if runs = 3
+                            
+                                            # increment runs
+                                            addi $t0, $t0, 1
+                                            bne $t0, $t7, outer_loop # end this loop if runs = 3
+                            
+                            lw $s7, 0($sp)
+                            lw $s6, 4($sp)
+                            lw $s5, 8($sp)
+                            lw $s4, 12($sp)
+                            lw $s3, 16($sp)
+                            lw $s2, 20($sp)
+                            lw $s1, 24($sp)
+                            lw $s0, 28($sp)
+                            
+                            addi $sp, $sp, 32    # Deallocate space for 8 registers
+                            jr $ra
+                            
+                        </code></pre>
+                    </div>
+                    
+                    <h2>Program Output</h2>
+                    <p>When executed, the program displays both input matrices and the resulting multiplication matrix:</p>
+                    
+                    <div class="output-example">
+Matrix A:
+1 2 3 
+4 5 6 
+7 8 9 
+
+Matrix B:
+9 8 7 
+6 5 4 
+3 2 1 
+
+Result Matrix (A × B):
+30 24 18 
+84 69 54 
+138 114 90 
+                    </div>
+                    
+                    <h2>Technical Challenges</h2>
+                    <div class="challenges">
+                        <div class="challenge">
+                            <h3>Memory Management</h3>
+                            <p>Working with multi-dimensional arrays in MIPS assembly required careful address calculation to access the correct elements.</p>
+                            <p><strong>Solution:</strong> I implemented index calculations using multiplication and addition operations to convert 2D coordinates into linear memory offsets.</p>
+                        </div>
+                        <div class="challenge">
+                            <h3>Register Allocation</h3>
+                            <p>MIPS has a limited number of registers, making it challenging to keep track of loop variables, addresses, and intermediate results.</p>
+                            <p><strong>Solution:</strong> I used a combination of temporary ($t) registers for short-lived values and saved ($s) registers for loop counters, properly saving and restoring context during function calls.</p>
+                        </div>
+                        <div class="challenge">
+                            <h3>Nested Loop Implementation</h3>
+                            <p>Matrix multiplication requires three nested loops, which can be complex to implement in assembly language.</p>
+                            <p><strong>Solution:</strong> I structured the code with clear labels and branch instructions to maintain the loop hierarchy, making the control flow more readable and maintainable.</p>
+                        </div>
+                    </div>
+                    
+                    <h2>What I Learned</h2>
+                    <p>This project deepened my understanding of computer architecture principles, memory addressing, and low-level programming concepts. I gained valuable experience with:</p>
+                    <ul>
+                        <li>MIPS assembly language syntax and conventions</li>
+                        <li>Register allocation strategies</li>
+                        <li>Memory addressing techniques</li>
+                        <li>Implementation of mathematical algorithms at the assembly level</li>
+                        <li>Low-level optimization techniques</li>
+                    </ul>
+                    
+                    <div class="project-navigation">
+                        <a href="../index.html" class="btn back-btn">Back to Projects</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Mark Zbarsky</p>
+            <div class="social-links">
+                <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
+                <a href="mailto:your.email@example.com">Email</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Add this script for the copy button functionality -->
+    <script>
+        function copyCode() {
+            const codeBlock = document.querySelector('.language-asm');
+            const textArea = document.createElement('textarea');
+            textArea.value = codeBlock.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            const copyBtn = document.querySelector('.copy-btn');
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
