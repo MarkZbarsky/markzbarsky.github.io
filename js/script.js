@@ -59,7 +59,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Run once on page load
     animateOnScroll();
   });
-  document.addEventListener('DOMContentLoaded', function() {
+ 
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (hamburger) {
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+        });
+    }
+    
     // Dropdown functionality for mobile
     const dropdownBtn = document.querySelector('.dropbtn');
     const dropdown = document.querySelector('.dropdown');
@@ -73,11 +86,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.dropdown') && dropdown.classList.contains('active')) {
-            dropdown.classList.remove('active');
-        }
+    // Close mobile menu when clicking on a link
+    const navItems = document.querySelectorAll('.nav-links a:not(.dropbtn)');
+    navItems.forEach(item => {
+        item.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+            document.body.classList.remove('menu-open');
+        });
     });
 });
-  

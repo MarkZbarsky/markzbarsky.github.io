@@ -497,6 +497,8 @@
     margin-bottom: 10px;
     font-weight: 500;
 }
+
+
 /* Dropdown styles */
 .dropdown {
     position: relative;
@@ -513,29 +515,30 @@
     transform: rotate(180deg);
 }
 
-.dropdown-content {
-    display: none;
+/* Create a container that includes both the button and content */
+.dropdown-container {
     position: absolute;
+    top: 100%;
+    left: 0;
+    padding-top: 20px; /* Critical: Creates space between button and content */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+    z-index: 1000;
+}
+
+.dropdown:hover .dropdown-container {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dropdown-content {
     background-color: var(--white);
     min-width: 180px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-    z-index: 1;
     border-radius: 4px;
     overflow: hidden;
-    top: 100%;
-    left: 0;
-    margin-top: 10px;
     padding: 5px 0;
-}
-
-/* This creates an invisible area to prevent dropdown from closing */
-.dropdown-content::before {
-    content: "";
-    position: absolute;
-    top: -20px;
-    left: 0;
-    right: 0;
-    height: 20px;
 }
 
 .dropdown-content a {
@@ -549,10 +552,6 @@
 
 .dropdown-content a:hover {
     background-color: var(--light);
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
 }
 
 .dropdown:hover .dropbtn {
@@ -569,20 +568,24 @@
 
 /* Adjust for mobile */
 @media (max-width: 768px) {
-    .dropdown-content {
+    .dropdown-container {
         position: static;
+        padding-top: 0;
+        opacity: 1;
+        visibility: hidden;
+        height: 0;
+        overflow: hidden;
+        transition: height 0.3s;
+    }
+    
+    .dropdown.active .dropdown-container {
+        visibility: visible;
+        height: auto;
+    }
+    
+    .dropdown-content {
         box-shadow: none;
-        margin-top: 0;
         background-color: rgba(0,0,0,0.05);
-        display: none;
-    }
-    
-    .dropdown-content::before {
-        display: none;
-    }
-    
-    .dropdown.active .dropdown-content {
-        display: block;
     }
     
     .dropdown-content a {
