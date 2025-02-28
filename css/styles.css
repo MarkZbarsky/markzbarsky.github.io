@@ -515,30 +515,33 @@
     transform: rotate(180deg);
 }
 
-/* Create a container that includes both the button and content */
-.dropdown-container {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    padding-top: 20px; /* Critical: Creates space between button and content */
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s, visibility 0.2s;
-    z-index: 1000;
-}
-
-.dropdown:hover .dropdown-container {
-    opacity: 1;
-    visibility: visible;
-}
-
 .dropdown-content {
+    position: absolute;
     background-color: var(--white);
     min-width: 180px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    z-index: 1;
     border-radius: 4px;
     overflow: hidden;
+    top: 100%;
+    left: 0;
+    margin-top: 10px;
     padding: 5px 0;
+    
+    /* Increased padding to create a larger hit area */
+    padding-top: 30px;
+    margin-top: -20px;
+    
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0s linear 1s; /* 1 second delay before hiding */
+}
+
+.dropdown:hover .dropdown-content,
+.dropdown-content:hover {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s; /* No delay when showing */
 }
 
 .dropdown-content a {
@@ -568,24 +571,20 @@
 
 /* Adjust for mobile */
 @media (max-width: 768px) {
-    .dropdown-container {
-        position: static;
-        padding-top: 0;
-        opacity: 1;
-        visibility: hidden;
-        height: 0;
-        overflow: hidden;
-        transition: height 0.3s;
-    }
-    
-    .dropdown.active .dropdown-container {
-        visibility: visible;
-        height: auto;
-    }
-    
     .dropdown-content {
+        position: static;
         box-shadow: none;
+        margin-top: 0;
+        padding-top: 0;
         background-color: rgba(0,0,0,0.05);
+        display: none;
+        opacity: 1;
+        visibility: visible;
+        transition: none;
+    }
+    
+    .dropdown.active .dropdown-content {
+        display: block;
     }
     
     .dropdown-content a {
