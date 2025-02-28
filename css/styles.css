@@ -534,7 +534,7 @@
     
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.2s, visibility 0s linear 1s; /* 1 second delay before hiding */
+    transition: opacity 0.2s, visibility 0s linear 1.5s; /* 1 second delay before hiding */
 }
 
 .dropdown:hover .dropdown-content,
