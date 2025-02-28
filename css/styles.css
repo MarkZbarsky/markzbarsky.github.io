@@ -525,6 +525,17 @@
     top: 100%;
     left: 0;
     margin-top: 10px;
+    padding: 5px 0;
+}
+
+/* This creates an invisible area to prevent dropdown from closing */
+.dropdown-content::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
+    height: 20px;
 }
 
 .dropdown-content a {
@@ -566,6 +577,10 @@
         display: none;
     }
     
+    .dropdown-content::before {
+        display: none;
+    }
+    
     .dropdown.active .dropdown-content {
         display: block;
     }
@@ -574,4 +589,3 @@
         padding-left: 30px;
     }
 }
-  
