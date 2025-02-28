@@ -5,20 +5,23 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (hamburger) {
       hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
         navLinks.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
       });
     }
     
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(event) {
-      if (!event.target.closest('.hamburger') && !event.target.closest('.nav-links')) {
-        if (navLinks && navLinks.classList.contains('active')) {
-          navLinks.classList.remove('active');
-        }
-      }
+    // Close mobile menu when clicking on a link
+    const navItems = document.querySelectorAll('.nav-links a');
+    navItems.forEach(item => {
+      item.addEventListener('click', function() {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+        document.body.classList.remove('menu-open');
+      });
     });
     
-    // Smooth scrolling for anchor links
+    // Add smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -32,30 +35,28 @@ document.addEventListener('DOMContentLoaded', function() {
             top: targetElement.offsetTop - 70,
             behavior: 'smooth'
           });
-          
-          // Close mobile menu after clicking
-          if (navLinks && navLinks.classList.contains('active')) {
-            navLinks.classList.remove('active');
-          }
         }
       });
     });
     
-    // Add animation on scroll
+    // Add scroll animation for elements
     const animateOnScroll = function() {
-      const elements = document.querySelectorAll('.project-card, .resume-block, .gallery-item');
+      const elements = document.querySelectorAll('.project-card, .resume-section, .gallery-item, .process-step');
       
       elements.forEach(element => {
-        const elementPosition = element.getBoundingClientRect().top;
+        const position = element.getBoundingClientRect().top;
         const windowHeight = window.innerHeight;
         
-        if (elementPosition < windowHeight - 100) {
-          element.classList.add('animate');
+        if (position < windowHeight - 100) {
+          element.classList.add('visible');
         }
       });
     };
     
+    // Run animation on scroll
     window.addEventListener('scroll', animateOnScroll);
-    animateOnScroll(); // Run once on page load
+    
+    // Run once on page load
+    animateOnScroll();
   });
   
