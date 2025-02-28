@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wind Turbine Project | Mark Barsky</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/media-queries.css">
+    <script src="../js/script.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Mark Barsky</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="active">Projects</a></li>
+                    <li><a href="../about.html">About</a></li>
+                </ul>
+                <div class="hamburger">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="project-detail">
+            <div class="container">
+                <div class="project-header">
+                    <h2>Wind Turbine Sensor Integration Project</h2>
+                    <div class="project-meta">
+                        <span class="project-date">May 2024 - Present</span>
+                        <span class="project-category">Research, Renewable Energy, IoT</span>
+                    </div>
+                </div>
+
+                <div class="project-hero">
+                    <img src="../images/wind_turbine_main.jpg" alt="Wind Turbine Project">
+                </div>
+
+                <div class="project-content">
+                    <h3>Project Overview</h3>
+                    <p>As part of my research with Polymathic Innovations, I engineered a data collection system for a prototype Savonius vertical-axis wind turbine (VAWT). I developed custom software using C++ and Python to interface with various sensors installed throughout the turbine structure. This system continuously monitored performance metrics and published data to Excel spreadsheets for detailed analysis. Through iterative optimization based on the collected data, our team successfully improved the turbine's efficiency by 15%. This project demonstrated the practical application of sustainable energy solutions specifically designed for urban environments, where traditional horizontal-axis turbines are less practical.</p>
+
+                    <div class="project-gallery">
+                        <div class="gallery-item">
+                            <img src="../images/wind_turbine_sensors.jpg" alt="Wind Turbine Sensors">
+                            <p>Sensor installation on the turbine structure</p>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/wind_turbine_data.jpg" alt="Wind Turbine Data">
+                            <p>Data visualization dashboard</p>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/wind_turbine_assembly.jpg" alt="Wind Turbine Assembly">
+                            <p>Turbine assembly and testing</p>
+                        </div>
+                    </div>
+
+                    <h3>Development Process</h3>
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <h4>1. Initial Assessment</h4>
+                            <p>The project began with evaluating the existing turbine prototype and identifying key performance metrics that needed monitoring. We determined that RPM, torque, wind speed, and power output were the critical parameters to track.</p>
+                        </div>
+                        <div class="process-step">
+                            <h4>2. Sensor Selection & Integration</h4>
+                            <p>I researched and selected appropriate sensors for each metric, including hall effect sensors for RPM measurement, strain gauges for torque, and anemometers for wind speed. Each sensor required custom mounting solutions to ensure accurate readings without affecting turbine performance.</p>
+                        </div>
+                        <div class="process-step">
+                            <h4>3. Data Collection System</h4>
+                            <p>I designed a microcontroller-based data acquisition system using an Arduino Mega as the central hub. This system collected data from all sensors at configurable intervals and transmitted it to a Raspberry Pi for processing and storage.</p>
+                        </div>
+                        <div class="process-step">
+                            <h4>4. Software Development</h4>
+                            <p>I wrote C++ firmware for the Arduino to handle real-time sensor reading and data transmission. On the Raspberry Pi, I developed Python scripts to process incoming data, perform calculations, and export results to spreadsheets for analysis.</p>
+                        </div>
+                        <div class="process-step">
+                            <h4>5. Optimization & Testing</h4>
+                            <p>Using the collected data, our team identified inefficiencies in the turbine design. We made iterative improvements to blade shape, bearing selection, and overall structure, testing each change against baseline performance metrics.</p>
+                        </div>
+                    </div>
+
+                    <h3>Technologies Used</h3>
+                    <ul class="tech-list">
+                        <li>Arduino Mega (data acquisition)</li>
+                        <li>Raspberry Pi 4 (data processing)</li>
+                        <li>C++ (firmware development)</li>
+                        <li>Python (data analysis)</li>
+                        <li>Various sensors (hall effect, strain gauges, anemometers)</li>
+                        <li>Excel (data visualization and analysis)</li>
+                    </ul>
+
+                    <h3>Challenges & Solutions</h3>
+                    <div class="challenges">
+                        <div class="challenge">
+                            <h4>Challenge: Environmental Durability</h4>
+                            <p>Sensors needed to withstand outdoor conditions including rain, temperature variations, and dust.</p>
+                            <p><strong>Solution:</strong> I designed custom weatherproof enclosures for all electronic components and used marine-grade connectors for all external wiring.</p>
+                        </div>
+                        <div class="challenge">
+                            <h4>Challenge: Power Management</h4>
+                            <p>The monitoring system needed to operate continuously without external power sources.</p>
+                            <p><strong>Solution:</strong> I implemented a solar-powered battery system with power management circuitry to ensure continuous operation, even during cloudy periods.</p>
+                        </div>
+                        <div class="challenge">
+                            <h4>Challenge: Data Reliability</h4>
+                            <p>Initial sensor readings showed inconsistencies due to vibration and electromagnetic interference.</p>
+                            <p><strong>Solution:</strong> I added signal filtering algorithms in the firmware and implemented redundant sensors for critical measurements to ensure data accuracy.</p>
+                        </div>
+                    </div>
+
+                    <h3>Results & Impact</h3>
+                    <p>The sensor integration and subsequent optimization resulted in a 15% improvement in turbine efficiency. The data collection system continues to provide valuable insights for ongoing development. The project has demonstrated the viability of Savonius VAWTs for urban environments and has led to additional funding for expanded research.</p>
+
+                    <h3>Future Improvements</h3>
+                    <p>Future work on this project includes implementing machine learning algorithms to predict optimal blade positioning based on wind conditions, developing a web-based dashboard for remote monitoring, and exploring materials with better durability-to-weight ratios for the turbine blades.</p>
+                </div>
+
+                <div class="project-navigation">
+                    <a href="../index.html" class="btn"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+                    <a href="line
