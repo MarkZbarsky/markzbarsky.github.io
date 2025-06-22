@@ -24,6 +24,7 @@
                         <a href="smart-birdfeeder.html">Smart Birdfeeder</a>
                         <a href="pixie-radio.html">Pixie Radio</a>
                         <a href="mips-calculator.html">MIPS Calculator</a>
+                        <a href="home-server.html">Home Server</a>
                     </div>
                 </li>
                 <li><a href="../about.html">About</a></li>
@@ -35,15 +36,11 @@
             </div>
         </div>
     </nav>
-    
-    
-    
-    
 
     <header class="project-header">
         <div class="container">
             <h1>Wind Turbine Sensor Integration</h1>
-            <p class="project-meta">Research Project - January - May 2024</p>
+            <p class="project-meta">Research Project • January - May 2024</p>
         </div>
     </header>
 
@@ -51,12 +48,15 @@
         <section class="project-details">
             <div class="container">
                 <div class="project-hero">
-                    <img src="../images/wind_turbine_main.jpg" alt="Wind Turbine Project">
+                    <video controls style="width: 100%; border-radius: 8px;">
+                        <source src="../images/turbine_video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
                 
                 <div class="project-description">
                     <h2>Overview</h2>
-                    <p>As part of my research with Polymathic Innovations, I engineered a data collection system for a prototype Savonius vertical-axis wind turbine (VAWT). I developed custom software using C++ and Python to interface with various sensors installed throughout the turbine structure. This system continuously monitored performance metrics and published data to Excel spreadsheets for detailed analysis. Through iterative optimization based on the collected data, our team successfully improved the turbine's efficiency by 15%.</p>
+                    <p>During my research collaboration with Polymathic Innovations, I tackled the complex challenge of instrumenting a prototype Savonius vertical-axis wind turbine for comprehensive performance analysis. The project required developing a robust data acquisition system capable of interfacing with multiple sensor types distributed throughout the turbine structure. I architected the solution using C++ for low-level sensor communication and Python for data processing and export functionality.</p>
                     
                     <div class="project-gallery">
                         <div class="gallery-item">
@@ -71,6 +71,19 @@
                             <img src="../images/wind_turbine_assembly.jpg" alt="Wind Turbine Assembly">
                             <p>Turbine assembly and testing</p>
                         </div>
+                    </div>
+
+                    <h2>System Architecture</h2>
+                    <p>The system continuously monitored critical performance parameters, automatically logging data to structured Excel formats for analysis. Through systematic evaluation of the collected metrics, I identified several optimization opportunities that our team implemented iteratively. These data-driven modifications ultimately resulted in a 15% improvement in overall turbine efficiency.</p>
+                    
+                    <div class="tech-stack">
+                        <span>Arduino Mega</span>
+                        <span>Raspberry Pi</span>
+                        <span>C++</span>
+                        <span>Python</span>
+                        <span>Hall Effect Sensors</span>
+                        <span>Strain Gauges</span>
+                        <span>Excel Integration</span>
                     </div>
 
                     <h2>Development Process</h2>
@@ -97,37 +110,25 @@
                         </div>
                     </div>
 
-                    <h2>Technologies Used</h2>
-                    <div class="tech-stack">
-                        <span>Arduino Mega</span>
-                        <span>Raspberry Pi</span>
-                        <span>C++</span>
-                        <span>Python</span>
-                        <span>Sensors (Hall Effect, Strain Gauges)</span>
-                        <span>Excel</span>
-                    </div>
-
-                    <h2>Challenges & Solutions</h2>
+                    <h2>Technical Challenges</h2>
                     <div class="challenges">
                         <div class="challenge">
-                            <h3>Environmental Durability</h3>
-                            <p>Sensors needed to withstand outdoor conditions including rain, temperature variations, and dust.</p>
-                            <p><strong>Solution:</strong> I designed custom weatherproof enclosures for all electronic components and used marine-grade connectors for all external wiring.</p>
+                            <h3>Environmental Protection</h3>
+                            <p>Electronic components needed protection from outdoor weather conditions.</p>
+                            <p><strong>Solution:</strong> I built simple enclosures to protect the sensors and data collection hardware from rain and dust exposure.</p>
                         </div>
                         <div class="challenge">
-                            <h3>Power Management</h3>
-                            <p>The monitoring system needed to operate continuously without external power sources.</p>
-                            <p><strong>Solution:</strong> I implemented a solar-powered battery system with power management circuitry to ensure continuous operation, even during cloudy periods.</p>
-                        </div>
-                        <div class="challenge">
-                            <h3>Data Reliability</h3>
-                            <p>Initial sensor readings showed inconsistencies due to vibration and electromagnetic interference.</p>
-                            <p><strong>Solution:</strong> I added signal filtering algorithms in the firmware and implemented redundant sensors for critical measurements to ensure data accuracy.</p>
+                            <h3>Data Processing</h3>
+                            <p>Raw sensor readings needed processing to identify meaningful trends and patterns.</p>
+                            <p><strong>Solution:</strong> I wrote code to calculate averages and standard deviations from the sensor data, helping to identify consistent performance patterns and outliers in the measurements.</p>
                         </div>
                     </div>
 
-                    <h2>Results</h2>
-                    <p>The sensor integration and subsequent optimization resulted in a 15% improvement in turbine efficiency. The data collection system continues to provide valuable insights for ongoing development. The project has demonstrated the viability of Savonius VAWTs for urban environments and has led to additional funding for expanded research.</p>
+
+                    <h2>Results and Impact</h2>
+                    <p>The project demonstrated both the practical challenges of renewable energy instrumentation and the significant impact that careful monitoring and analysis can have on system performance in urban wind applications. The sensor integration and subsequent optimization resulted in a 15% improvement in turbine efficiency. The data collection system continues to provide valuable insights for ongoing development.</p>
+                    
+                    <p>The project has demonstrated the viability of Savonius VAWTs for urban environments and has led to additional funding for expanded research. This work contributed to the broader understanding of small-scale wind energy systems and their potential applications in distributed power generation.</p>
 
                     <div class="project-navigation">
                         <a href="../index.html" class="btn back-btn">Back to Projects</a>
@@ -139,9 +140,9 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Mark Zbarsky</p>
+            <p>&copy; 2025 Mark Zbarsky</p>
             <div class="social-links">
-                <a href="linkedin.com/in/mark-zbarsky-139697265/" target="_blank">LinkedIn</a>
+                <a href="https://linkedin.com/in/mark-zbarsky-139697265/" target="_blank">LinkedIn</a>
                 <a href="mailto:markzb1483@gmail.com">Email</a>
             </div>
         </div>

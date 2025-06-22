@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Birdfeeder | Mark Zbarsky</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/media-queries.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="../js/script.js" defer></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">Mark Zbarsky</a>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="../index.html" class="dropbtn">Projects <i class="dropdown-arrow">▼</i></a>
+                    <div class="dropdown-content">
+                        <a href="wind-turbine.html">Wind Turbine</a>
+                        <a href="line-follower.html">Line Follower</a>
+                        <a href="smart-birdfeeder.html">Smart Birdfeeder</a>
+                        <a href="pixie-radio.html">Pixie Radio</a>
+                        <a href="mips-calculator.html">MIPS Calculator</a>
+                        <a href="home-server.html">Home Server</a>
+                    </div>
+                </li>
+                <li><a href="../about.html">About</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="project-header">
+        <div class="container">
+            <h1>Smart Birdfeeder with Motion Detection</h1>
+            <p class="project-meta">IoT & Woodworking • August 2024</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="project-details">
+            <div class="container">
+                <div class="project-hero">
+                    <img src="../images/birdfeeder_partial.jpg" alt="Smart Birdfeeder Main">
+                </div>
+                
+                <div class="project-description">
+                    <h2>Overview</h2>
+                    <p>This project emerged from my interest in combining traditional craftsmanship with modern IoT capabilities to create an intelligent wildlife monitoring solution. I began by constructing a custom wooden feeder structure from cedar, then integrated a Raspberry Pi with a basic camera module and infrared motion detection sensor. The system captures photos when motion is detected and sends simple notifications to my mobile device when birds visit the feeder.</p>
+                    
+                    <div class="project-gallery">
+                        <div class="gallery-item">
+                            <img src="../images/birdfeeder_sample.jpg" alt="Birdfeeder Design Inspiration">
+                            <p>Design inspiration and reference example</p>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/birdfeeder_sketch.jpg" alt="Birdfeeder Design Sketch">
+                            <p>Initial design sketches and measurements</p>
+                        </div>
+                    </div>
+
+                    <h2>Design and Construction</h2>
+                    <p>The woodworking phase involved selecting appropriate materials that would withstand outdoor conditions while providing adequate space for the electronic components. I chose cedar for its natural weather resistance and aesthetic appeal. The design incorporated a hinged roof for easy maintenance access and strategically placed openings for the camera lens and motion sensor.</p>
+                    
+                    <p>The construction process required careful planning to integrate the electronics seamlessly into the wooden structure. I created mounting points for the Raspberry Pi and camera module while ensuring proper ventilation and protection from the elements.</p>
+
+                    <div class="tech-stack">
+                        <span>Raspberry Pi 4</span>
+                        <span>Camera Module</span>
+                        <span>PIR Motion Sensor</span>
+                        <span>Python</span>
+                        <span>Cedar Wood</span>
+                        <span>Basic Notifications</span>
+                    </div>
+
+                    <h2>Electronic System Implementation</h2>
+                    <p>The electronic system centers around a Raspberry Pi that coordinates between the motion sensor and camera module. When the PIR (passive infrared) sensor detects movement, it triggers the Raspberry Pi to activate the camera and capture a timestamped photograph. The Python software I wrote handles the sensor input processing, camera control, and basic notification system.</p>
+                    
+                    <div class="process">
+                        <div class="process-step">
+                            <h3>Motion Detection</h3>
+                            <p>The PIR sensor detects infrared signature changes from warm-blooded visitors and sends an interrupt signal to the Raspberry Pi, initiating the photo capture sequence.</p>
+                        </div>
+                        <div class="process-step">
+                            <h3>Photo Capture</h3>
+                            <p>When motion is detected, the camera module captures a high-resolution image with timestamp information, storing it locally on the Raspberry Pi's storage.</p>
+                        </div>
+                        <div class="process-step">
+                            <h3>Basic Notifications</h3>
+                            <p>The system sends simple notifications to my phone when activity is detected, allowing me to know when birds are visiting the feeder in real-time.</p>
+                        </div>
+                    </div>
+
+                    <h2>Software Development</h2>
+                    <p>I developed Python scripts to handle the coordination between hardware components. The main program runs continuously in the background, monitoring the PIR sensor for motion events. When triggered, it activates the camera, captures an image, saves it with a timestamp, and sends a basic notification to alert me of the bird visit.</p>
+                    
+                    <p>The software architecture includes:</p>
+                    <ul>
+                        <li>Motion detection using PIR sensor GPIO interrupts</li>
+                        <li>Camera module control for image capture</li>
+                        <li>File management system for storing photos with timestamps</li>
+                        <li>Simple notification system for mobile alerts</li>
+                        <li>Basic logging to track system activity</li>
+                    </ul>
+
+                    <h2>Technical Challenges</h2>
+                    <div class="challenges">
+                        <div class="challenge">
+                            <h3>Weather Protection</h3>
+                            <p>Protecting electronic components from moisture while maintaining camera visibility and motion sensor functionality.</p>
+                            <p><strong>Solution:</strong> I designed a sealed electronic compartment with a transparent window for the camera and proper weatherproofing for the motion sensor, using silicone seals and careful cable routing.</p>
+                        </div>
+                        <div class="challenge">
+                            <h3>False Motion Triggers</h3>
+                            <p>Initial testing showed triggers from wind-blown leaves, changing shadows, and small insects rather than birds.</p>
+                            <p><strong>Solution:</strong> I adjusted the PIR sensor sensitivity settings and positioning to reduce false positives from non-bird movement, though some environmental triggers still occur.</p>
+                        </div>
+                        <div class="challenge">
+                            <h3>Power Supply</h3>
+                            <p>Providing reliable power for continuous outdoor operation of the Raspberry Pi and camera system.</p>
+                            <p><strong>Solution:</strong> I implemented a combination of rechargeable battery power with periodic charging cycles to maintain operation between power source access.</p>
+                        </div>
+                    </div>
+
+                    <h2>Results and Wildlife Observation</h2>
+                    <p>The completed system successfully captures photos of visiting birds and provides real-time notifications when wildlife activity occurs at the feeder. Since deployment, I've been able to observe and photograph various bird species that visit throughout different times of day, including cardinals, blue jays, chickadees, and several woodpecker species.</p>
+                    
+                    <p>The system has been particularly valuable for understanding bird behavior patterns - I can see which times of day are most active and which types of seeds attract different species. While the occasional false trigger from environmental factors still occurs, the majority of notifications correspond to actual bird visits.</p>
+                    
+                    <p>This project successfully merged hardware fabrication, embedded programming, and mobile connectivity into a functional tool for backyard wildlife observation. The experience demonstrated the practical challenges of outdoor IoT deployment and the importance of robust environmental design considerations.</p>
+
+                    <h2>Future Improvements</h2>
+                    <p>Potential enhancements for future versions could include improved weatherproofing, better power management for extended operation, and refinements to reduce false triggers from environmental factors. The modular design allows for easy updates and modifications as new ideas arise.</p>
+
+                    <div class="project-navigation">
+                        <a href="../index.html" class="btn back-btn">Back to Projects</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Mark Zbarsky</p>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/mark-zbarsky-139697265/" target="_blank">LinkedIn</a>
+                <a href="mailto:markzb1483@gmail.com">Email</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

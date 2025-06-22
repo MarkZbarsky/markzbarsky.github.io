@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Line Follower Vehicle | Mark Zbarsky</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/media-queries.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="../js/script.js" defer></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">Mark Zbarsky</a>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="../index.html" class="dropbtn">Projects <i class="dropdown-arrow">▼</i></a>
+                    <div class="dropdown-content">
+                        <a href="wind-turbine.html">Wind Turbine</a>
+                        <a href="line-follower.html">Line Follower</a>
+                        <a href="smart-birdfeeder.html">Smart Birdfeeder</a>
+                        <a href="pixie-radio.html">Pixie Radio</a>
+                        <a href="mips-calculator.html">MIPS Calculator</a>
+                        <a href="home-server.html">Home Server</a>
+                    </div>
+                </li>
+                <li><a href="../about.html">About</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="project-header">
+        <div class="container">
+            <h1>Line Follower Autonomous Vehicle</h1>
+            <p class="project-meta">Embedded Systems • September 2024</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="project-details">
+            <div class="container">
+                <div class="project-hero">
+                    <video controls style="width: 100%; border-radius: 8px;">
+                        <source src="../images/line_follower_vid.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                
+                <div class="project-description">
+                    <h2>Overview</h2>
+                    <p>For my ENGR 2050 coursework, I designed and implemented an autonomous navigation system centered around line-following capabilities. The hardware foundation consisted of an Arduino Uno microcontroller interfaced with dual infrared sensors strategically positioned to detect optical contrast between a navigation line and the surrounding surface. I developed the control algorithms to process sensor inputs and translate them into precise motor commands for a differential drive system powered by independent DC motors.</p>
+                    
+                    <div class="project-gallery">
+                        <div class="gallery-item">
+                            <img src="../images/bottom_line_follower.jpg" alt="Line Follower Bottom View">
+                            <p>Bottom view showing sensor placement and wiring</p>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/close_up_line_follower.jpg" alt="Line Follower Close-up">
+                            <p>Close-up of control electronics and sensors</p>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="../images/far_out_line_follower.jpg" alt="Line Follower Complete Vehicle">
+                            <p>Complete vehicle ready for testing</p>
+                        </div>
+                    </div>
+
+                    <h2>System Architecture</h2>
+                    <p>The autonomous vehicle employs a differential drive configuration where two DC motors independently control the rear wheels. This design provides the maneuverability necessary for sharp directional changes while maintaining stability during straight-line motion. The infrared sensors operate on the principle of reflectance measurement, detecting the contrast between dark navigation lines and lighter background surfaces.</p>
+                    
+                    <div class="tech-stack">
+                        <span>Arduino Uno</span>
+                        <span>Infrared Sensors</span>
+                        <span>DC Motors</span>
+                        <span>9V Battery</span>
+                        <span>C++ Programming</span>
+                        <span>Differential Drive</span>
+                    </div>
+
+                    <h2>Control Algorithm Development</h2>
+                    <p>The most technically challenging aspect involved tuning the control parameters to handle dynamic path conditions, including sharp directional changes that approached the vehicle's minimum turning radius. I implemented a proportional control system that adjusts motor speeds based on sensor readings, enabling smooth trajectory corrections without oscillation.</p>
+                    
+                    <p>The algorithm processes sensor data in real-time, making steering decisions based on the following logic:</p>
+                    <ul>
+                        <li>Both sensors detect the line: Move forward at full speed</li>
+                        <li>Left sensor only detects line: Reduce left motor speed, turn right</li>
+                        <li>Right sensor only detects line: Reduce right motor speed, turn left</li>
+                        <li>Neither sensor detects line: Execute search pattern to relocate the path</li>
+                    </ul>
+
+                    <h2>Testing and Optimization</h2>
+                    <p>Through iterative testing and refinement, I optimized the response characteristics to achieve reliable navigation across complex course layouts. The testing process involved gradually increasing track complexity, starting with gentle curves and progressing to sharp turns and figure-eight patterns.</p>
+                    
+                    <div class="challenges">
+                        <div class="challenge">
+                            <h3>Sensor Calibration</h3>
+                            <p>Initial testing revealed inconsistent readings due to ambient lighting variations and surface irregularities.</p>
+                            <p><strong>Solution:</strong> I implemented adaptive thresholding that automatically adjusts sensitivity based on baseline readings taken at startup.</p>
+                        </div>
+                        <div class="challenge">
+                            <h3>Sharp Turn Navigation</h3>
+                            <p>The vehicle initially struggled with abrupt directional changes, often overshooting the line or stopping completely.</p>
+                            <p><strong>Solution:</strong> I fine-tuned the proportional control gains and added a brief reverse motor command when both sensors lose the line simultaneously.</p>
+                        </div>
+                    </div>
+
+                    <h2>System Limitations</h2>
+                    <p>Despite successful overall performance, the vehicle encountered limitations with extremely sharp angular turns, such as narrow triangular paths with acute angles. The physical turning radius of the differential drive system represents a fundamental constraint that would require more complex maneuvering strategies or alternative steering mechanisms to overcome. These limitations highlighted the importance of understanding mechanical constraints when designing autonomous navigation systems.</p>
+
+                    <h2>Results and Performance</h2>
+                    <p>The completed autonomous vehicle successfully navigated complex paths including sharp corners, S-curves, and closed-loop circuits. The system demonstrated robust performance across different lighting conditions and track configurations. This project provided hands-on experience with embedded control systems, sensor integration, and real-time decision-making algorithms in autonomous vehicle applications.</p>
+
+                    <p>The final implementation achieved consistent line-following accuracy with minimal oscillation, successfully completing all test courses within the specified time constraints. The experience reinforced the importance of systematic testing and iterative refinement in embedded systems development.</p>
+
+                    <div class="project-navigation">
+                        <a href="../index.html" class="btn back-btn">Back to Projects</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Mark Zbarsky</p>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/mark-zbarsky-139697265/" target="_blank">LinkedIn</a>
+                <a href="mailto:markzb1483@gmail.com">Email</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
