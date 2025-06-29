@@ -48,41 +48,36 @@
         <section class="project-details">
             <div class="container">
                 <div class="project-hero">
-                    <video controls style="width: 100%; border-radius: 8px;">
-                        <source src="../images/turbine_video.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                    <img src="../images/turbine_picture.jpg" alt="Wind Turbine Completed Prototype">
                 </div>
                 
                 <div class="project-description">
                     <h2>Overview</h2>
-                    <p>During my research collaboration with Polymathic Innovations, I tackled the complex challenge of instrumenting a prototype Savonius vertical-axis wind turbine for comprehensive performance analysis. The project required developing a robust data acquisition system capable of interfacing with multiple sensor types distributed throughout the turbine structure. I architected the solution using C++ for low-level sensor communication and Python for data processing and export functionality.</p>
+                    <p>During my research with Polymathic Innovations, I was given the task of managing all electronics on the Savonius vertical-axis wind turbine. Working with one other student, we designed the voltage collection and storage system, consisting of a small generator and regulator connected to a 12V battery. I also soloed the task of setting up a sensor system to measure wind speed and direction, RPM, and voltage/current output.</p>
                     
-                    <div class="project-gallery">
+                    <div class="project-gallery two-items">
                         <div class="gallery-item">
-                            <img src="../images/wind_turbine_sensors.jpg" alt="Wind Turbine Sensors">
-                            <p>Sensor installation on the turbine structure</p>
+                            <img src="../images/turbine_circuit.jpg" alt="Wind Turbine Circuit Board">
+                            <p>First prototype and testing board</p>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/wind_turbine_data.jpg" alt="Wind Turbine Data">
-                            <p>Data visualization dashboard</p>
-                        </div>
-                        <div class="gallery-item">
-                            <img src="../images/wind_turbine_assembly.jpg" alt="Wind Turbine Assembly">
-                            <p>Turbine assembly and testing</p>
+                            <img src="../images/turbine_picture.jpg" alt="Wind Turbine Complete">
+                            <p>Turbine completed prototype</p>
                         </div>
                     </div>
 
                     <h2>System Architecture</h2>
-                    <p>The system continuously monitored critical performance parameters, automatically logging data to structured Excel formats for analysis. Through systematic evaluation of the collected metrics, I identified several optimization opportunities that our team implemented iteratively. These data-driven modifications ultimately resulted in a 15% improvement in overall turbine efficiency.</p>
+                    <p>Various iterations of the system used Raspberry Pis, ESP32s, Arduino Unos, and STM development boards. Each board had its own pros and cons: For example, the Arduino Uno has data streamer functionality with Excel, allowing it to directly print terminal outputs into an Excel spreadsheet. However, the max input voltage on input pins was 5V, unlike the STM Development board which supported a direct 12V input for testing. All variations of the system had the same goal. The system monitored performance parameters of the turbine, logging metrics through various mediums for analysis. This data allowed us to test various orientations and designs, which ultimately resulted in a 15% improvement in overall efficiency.</p>
                     
                     <div class="tech-stack">
-                        <span>Arduino Mega</span>
+                        <span>Arduino Uno</span>
                         <span>Raspberry Pi</span>
+                        <span>ESP32</span>
+                        <span>STM Development Board</span>
                         <span>C++</span>
                         <span>Python</span>
                         <span>Hall Effect Sensors</span>
-                        <span>Strain Gauges</span>
+                        <span>Anemometer</span>
                         <span>Excel Integration</span>
                     </div>
 
@@ -90,23 +85,23 @@
                     <div class="process">
                         <div class="process-step">
                             <h3>Initial Assessment</h3>
-                            <p>The project began with evaluating the existing turbine prototype and identifying key performance metrics that needed monitoring. We determined that RPM, torque, wind speed, and power output were the critical parameters to track.</p>
+                            <p>The project began with evaluating the existing turbine prototype and identifying key performance metrics that needed monitoring. We determined that RPM, wind speed, wind direction, and power output were the critical parameters to track.</p>
                         </div>
                         <div class="process-step">
                             <h3>Sensor Selection & Integration</h3>
-                            <p>I researched and selected appropriate sensors for each metric, including hall effect sensors for RPM measurement, strain gauges for torque, and anemometers for wind speed. Each sensor required custom mounting solutions to ensure accurate readings without affecting turbine performance.</p>
+                            <p>I researched and selected appropriate sensors for each metric, including hall effect sensors for RPM measurement, anemometers for wind speed, wind vanes for direction, and voltage/current sensors for power output. Each sensor required custom mounting solutions to ensure accurate readings without affecting turbine performance.</p>
                         </div>
                         <div class="process-step">
-                            <h3>Data Collection System</h3>
-                            <p>I designed a microcontroller-based data acquisition system using an Arduino Mega as the central hub. This system collected data from all sensors at configurable intervals and transmitted it to a Raspberry Pi for processing and storage.</p>
+                            <h3>Microcontroller Testing</h3>
+                            <p>I experimented with different microcontroller platforms to find the best solution for our specific requirements. Each platform required different approaches for sensor interfacing, data processing, and output formatting.</p>
                         </div>
                         <div class="process-step">
                             <h3>Software Development</h3>
-                            <p>I wrote C++ firmware for the Arduino to handle real-time sensor reading and data transmission. On the Raspberry Pi, I developed Python scripts to process incoming data, perform calculations, and export results to spreadsheets for analysis.</p>
+                            <p>I developed firmware for various microcontrollers to handle real-time sensor reading and data logging. The Arduino Uno version included Excel integration, while other platforms used different data export methods for analysis.</p>
                         </div>
                         <div class="process-step">
-                            <h3>Optimization & Testing</h3>
-                            <p>Using the collected data, our team identified inefficiencies in the turbine design. We made iterative improvements to blade shape, bearing selection, and overall structure, testing each change against baseline performance metrics.</p>
+                            <h3>Testing & Optimization</h3>
+                            <p>Using the collected data, our team tested various turbine orientations and design modifications. We iteratively improved the system based on performance metrics and environmental conditions.</p>
                         </div>
                     </div>
 
@@ -118,17 +113,31 @@
                             <p><strong>Solution:</strong> I built simple enclosures to protect the sensors and data collection hardware from rain and dust exposure.</p>
                         </div>
                         <div class="challenge">
-                            <h3>Data Processing</h3>
-                            <p>Raw sensor readings needed processing to identify meaningful trends and patterns.</p>
-                            <p><strong>Solution:</strong> I wrote code to calculate averages and standard deviations from the sensor data, helping to identify consistent performance patterns and outliers in the measurements.</p>
+                            <h3>Microcontroller Compatibility</h3>
+                            <p>Different microcontrollers had varying voltage requirements, built-in features, and programming approaches.</p>
+                            <p><strong>Solution:</strong> I systematically tested each platform, documenting the specific requirements and capabilities to determine the best fit for each application.</p>
+                        </div>
+                        <div class="challenge">
+                            <h3>Sensor Calibration</h3>
+                            <p>Some sensors, particularly the wind speed sensor, arrived without calibration documentation.</p>
+                            <p><strong>Solution:</strong> I developed custom calibration procedures using reference equipment like anemometers and controlled testing with tools like leaf blowers to derive characteristic equations.</p>
                         </div>
                     </div>
 
+                    <div style="margin: 30px 0;">
+                        <video controls style="width: 70%; border-radius: 8px; display: block; margin: 0 auto;">
+                            <source src="../images/turbine_video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <p style="text-align: center; margin-top: 15px; font-style: italic; color: var(--warm-gray);">
+                            One challenge we ran into was that the wind speed sensor we ordered came without any calibration guide. We were able to derive the characteristic equation for it with a leaf blower and an anemometer.
+                        </p>
+                    </div>
 
-                    <h2>Results and Impact</h2>
-                    <p>The project demonstrated both the practical challenges of renewable energy instrumentation and the significant impact that careful monitoring and analysis can have on system performance in urban wind applications. The sensor integration and subsequent optimization resulted in a 15% improvement in turbine efficiency. The data collection system continues to provide valuable insights for ongoing development.</p>
+                    <h2>Results and Personal Growth</h2>
+                    <p>This project was super interesting and I learned a lot throughout it. This was my first time setting up microcontroller sensor solutions outside of a classroom, without guidance and structure. I ran into problems constantly, especially as I swapped between boards. Some had built-in pull-up resistors, and others didn't. By the time my systems worked, I felt a lot more comfortable using microcontrollers for various purposes - since this project, I've done several other small microcontroller projects, including the Smart Birdfeeder (also featured).</p>
                     
-                    <p>The project has demonstrated the viability of Savonius VAWTs for urban environments and has led to additional funding for expanded research. This work contributed to the broader understanding of small-scale wind energy systems and their potential applications in distributed power generation.</p>
+                    <p>Our project was also relatively successful. As a project that had minimal funding and did our best to scrap together a functional wind turbine, we achieved about 16% efficiency - which is quite high for a Savonius wind turbine. We were able to take our project and pitch it, and secured more funding for additional research in future semesters.</p>
 
                     <div class="project-navigation">
                         <a href="../index.html" class="btn back-btn">Back to Projects</a>

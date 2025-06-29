@@ -48,17 +48,17 @@
         <section class="project-details">
             <div class="container">
                 <div class="project-hero">
-                    <video controls style="width: 100%; border-radius: 8px;">
+                    <video controls style="width: 100%; max-width: 100%; display: block;">
                         <source src="../images/line_follower_vid.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
                 
-                <div class="project-description">
+                <div class="project-description" style="width: 100%; max-width: 100%;">
                     <h2>Overview</h2>
                     <p>For my ENGR 2050 coursework, I designed and implemented an autonomous navigation system centered around line-following capabilities. The hardware foundation consisted of an Arduino Uno microcontroller interfaced with dual infrared sensors strategically positioned to detect optical contrast between a navigation line and the surrounding surface. I developed the control algorithms to process sensor inputs and translate them into precise motor commands for a differential drive system powered by independent DC motors.</p>
                     
-                    <div class="project-gallery">
+                    <div class="project-gallery three-items">
                         <div class="gallery-item">
                             <img src="../images/bottom_line_follower.jpg" alt="Line Follower Bottom View">
                             <p>Bottom view showing sensor placement and wiring</p>
