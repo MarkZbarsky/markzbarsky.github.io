@@ -474,6 +474,13 @@ body {
   gap: 30px;
 }
 
+.coursework-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 30px;
+}
+
 .skill-category {
   background: linear-gradient(135deg, #f8fafc 0%, #e8f2ff 100%);
   padding: 25px;
