@@ -140,11 +140,7 @@ body {
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  color: var(--text);
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #2c5aa0;
 }
 
 .header p {
@@ -303,7 +299,7 @@ body {
 
 .btn {
   display: inline-block;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  background: #2c5aa0;
   color: var(--white);
   padding: 12px 20px;
   border-radius: 6px;
@@ -319,7 +315,8 @@ body {
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(74, 144, 226, 0.3);
+  background: #1e3f73;
+  box-shadow: 0 6px 20px rgba(44, 90, 160, 0.3);
 }
 
 /* About Section */

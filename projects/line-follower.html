@@ -56,7 +56,9 @@
                 
                 <div class="project-description" style="width: 100%; max-width: 100%;">
                     <h2>Overview</h2>
-                    <p>For my ENGR 2050 coursework, I designed and implemented an autonomous navigation system centered around line-following capabilities. The hardware foundation consisted of an Arduino Uno microcontroller interfaced with dual infrared sensors strategically positioned to detect optical contrast between a navigation line and the surrounding surface. I developed the control algorithms to process sensor inputs and translate them into precise motor commands for a differential drive system powered by independent DC motors.</p>
+                    <p>This was a short, 1-2 week basic build project from my ENGR 2050 coursework designed to test our teamwork abilities with a new partner. We were given very minimal guidance and were instructed to keep our systems simple yet functional. The project centered around creating an autonomous vehicle that could follow a black line on the ground using any detection method we chose.</p>
+                    
+                    <p>While straightforward in concept, this project was primarily about learning to work effectively with a random partner under time pressure, while gaining basic hands-on experience with embedded systems and sensor integration.</p>
                     
                     <div class="project-gallery three-items">
                         <div class="gallery-item">
@@ -65,7 +67,7 @@
                         </div>
                         <div class="gallery-item">
                             <img src="../images/close_up_line_follower.jpg" alt="Line Follower Close-up">
-                            <p>Close-up of control electronics and sensors</p>
+                            <p>Close-up of control electronics and circuit</p>
                         </div>
                         <div class="gallery-item">
                             <img src="../images/far_out_line_follower.jpg" alt="Line Follower Complete Vehicle">
@@ -73,8 +75,8 @@
                         </div>
                     </div>
 
-                    <h2>System Architecture</h2>
-                    <p>The autonomous vehicle employs a differential drive configuration where two DC motors independently control the rear wheels. This design provides the maneuverability necessary for sharp directional changes while maintaining stability during straight-line motion. The infrared sensors operate on the principle of reflectance measurement, detecting the contrast between dark navigation lines and lighter background surfaces.</p>
+                    <h2>System Design (Simple & Functional)</h2>
+                    <p>Given the time constraints and focus on teamwork, we kept the design intentionally simple. The robot featured a basic drive system with two DC motors controlling the rear wheels. Two infrared sensors mounted on the bottom detected the contrast between the dark line and the lighter floor surface. An Arduino Uno processed sensor readings and controlled motor speeds to keep the robot following the line.</p>
                     
                     <div class="tech-stack">
                         <span>Arduino Uno</span>
@@ -85,40 +87,36 @@
                         <span>Differential Drive</span>
                     </div>
 
-                    <h2>Control Algorithm Development</h2>
-                    <p>The most technically challenging aspect involved tuning the control parameters to handle dynamic path conditions, including sharp directional changes that approached the vehicle's minimum turning radius. I implemented a proportional control system that adjusts motor speeds based on sensor readings, enabling smooth trajectory corrections without oscillation.</p>
+                    <h2>Programming Logic (Basic but Effective)</h2>
+                    <p>Given the time constraints, we implemented a straightforward control algorithm that was simple yet functional. The program continuously reads from both infrared sensors and adjusts motor speeds based on which sensor detects the line:</p>
                     
-                    <p>The algorithm processes sensor data in real-time, making steering decisions based on the following logic:</p>
                     <ul>
                         <li>Both sensors detect the line: Move forward at full speed</li>
-                        <li>Left sensor only detects line: Reduce left motor speed, turn right</li>
-                        <li>Right sensor only detects line: Reduce right motor speed, turn left</li>
-                        <li>Neither sensor detects line: Execute search pattern to relocate the path</li>
+                        <li>Left sensor only detects line: Slow down left motor to turn left</li>
+                        <li>Right sensor only detects line: Slow down right motor to turn right</li>
+                        <li>Neither sensor detects line: Search for the line briefly, before giving up and stopping</li>
                     </ul>
 
-                    <h2>Testing and Optimization</h2>
-                    <p>Through iterative testing and refinement, I optimized the response characteristics to achieve reliable navigation across complex course layouts. The testing process involved gradually increasing track complexity, starting with gentle curves and progressing to sharp turns and figure-eight patterns.</p>
+                    <h2>Challenges and Solutions</h2>
+                    <p>Despite being a basic project, we encountered several challenges working with strict class-by-class deadlines and the need to quickly establish effective teamwork:</p>
                     
                     <div class="challenges">
                         <div class="challenge">
-                            <h3>Sensor Calibration</h3>
-                            <p>Initial testing revealed inconsistent readings due to ambient lighting variations and surface irregularities.</p>
-                            <p><strong>Solution:</strong> I implemented adaptive thresholding that automatically adjusts sensitivity based on baseline readings taken at startup.</p>
+                            <h3>Aggressive Time Constraints</h3>
+                            <p>We had to show significant progress every single class: First class - complete design and order parts with minimal information. Second class - fully assemble and get a working prototype. Third class - deliver a completely finished robot.</p>
+                            <p><strong>Solution:</strong> We prioritized rapid decision-making and focused on a simple, reliable design that we could execute quickly rather than trying to over-engineer the solution.</p>
                         </div>
                         <div class="challenge">
-                            <h3>Sharp Turn Navigation</h3>
-                            <p>The vehicle initially struggled with abrupt directional changes, often overshooting the line or stopping completely.</p>
-                            <p><strong>Solution:</strong> I fine-tuned the proportional control gains and added a brief reverse motor command when both sensors lose the line simultaneously.</p>
+                            <h3>Random Partner Collaboration</h3>
+                            <p>I was paired with a random partner (a mechanical engineer) for the first time, requiring us to quickly establish communication and divide responsibilities under intense time pressure.</p>
+                            <p><strong>Solution:</strong> We quickly got to work - we established solid communication and came up with a comprehensive plan for the project, planning for any missteps along the way. I think that our strong communication and slow-and-steady approach allowed us to stay calm and succeed.</p>
                         </div>
                     </div>
 
-                    <h2>System Limitations</h2>
-                    <p>Despite successful overall performance, the vehicle encountered limitations with extremely sharp angular turns, such as narrow triangular paths with acute angles. The physical turning radius of the differential drive system represents a fundamental constraint that would require more complex maneuvering strategies or alternative steering mechanisms to overcome. These limitations highlighted the importance of understanding mechanical constraints when designing autonomous navigation systems.</p>
+                    <h2>Results</h2>
+                    <p>Our line-following robot successfully navigated the test course, including straight sections, gentle curves, and some sharper turns. While it wasn't the most sophisticated autonomous vehicle, it accomplished the core objective of following a line reliably. We got the highest score out of all the classes this semester.</p>
 
-                    <h2>Results and Performance</h2>
-                    <p>The completed autonomous vehicle successfully navigated complex paths including sharp corners, S-curves, and closed-loop circuits. The system demonstrated robust performance across different lighting conditions and track configurations. This project provided hands-on experience with embedded control systems, sensor integration, and real-time decision-making algorithms in autonomous vehicle applications.</p>
-
-                    <p>The final implementation achieved consistent line-following accuracy with minimal oscillation, successfully completing all test courses within the specified time constraints. The experience reinforced the importance of systematic testing and iterative refinement in embedded systems development.</p>
+                    <p>The project was successful in its primary goal of testing our teamwork abilities - we quickly established effective communication and division of responsibilities despite being randomly paired. It also provided a good introduction to embedded systems programming and gave us practical experience with sensor integration, motor control, and working under time pressure. The project demonstrated that even simple, basic builds can be valuable learning experiences when executed thoughtfully with good teamwork.</p>
 
                     <div class="project-navigation">
                         <a href="../index.html" class="btn back-btn">Back to Projects</a>

@@ -40,7 +40,7 @@
     <header class="project-header">
         <div class="container">
             <h1>Smart Birdfeeder with Motion Detection</h1>
-            <p class="project-meta">IoT & Woodworking • August 2024</p>
+            <p class="project-meta">IoT & Woodworking • Ongoing Project</p>
         </div>
     </header>
 
@@ -53,7 +53,7 @@
                 
                 <div class="project-description">
                     <h2>Overview</h2>
-                    <p>This project emerged from my interest in combining traditional craftsmanship with modern IoT capabilities to create an intelligent wildlife monitoring solution. I began by constructing a custom wooden feeder structure from cedar, then integrated a Raspberry Pi with a basic camera module and infrared motion detection sensor. The system captures photos when motion is detected and sends simple notifications to my mobile device when birds visit the feeder.</p>
+                    <p>This project combines traditional woodworking with modern IoT technology to create an intelligent wildlife monitoring solution. I've completed the custom cedar feeder structure and built the frame, but the project is currently on hold due to several technical challenges that need to be addressed before deployment. The initial design had power supply issues, weatherproofing concerns, and image quality problems that made it unsuitable for long-term outdoor use.</p>
                     
                     <div class="project-gallery">
                         <div class="gallery-item">
@@ -66,78 +66,112 @@
                         </div>
                     </div>
 
-                    <h2>Design and Construction</h2>
+                    <h2>Physical Construction (Completed)</h2>
                     <p>The woodworking phase involved selecting appropriate materials that would withstand outdoor conditions while providing adequate space for the electronic components. I chose cedar for its natural weather resistance and aesthetic appeal. The design incorporated a hinged roof for easy maintenance access and strategically placed openings for the camera lens and motion sensor.</p>
                     
-                    <p>The construction process required careful planning to integrate the electronics seamlessly into the wooden structure. I created mounting points for the Raspberry Pi and camera module while ensuring proper ventilation and protection from the elements.</p>
+                    <p>The construction process required careful planning to integrate electronics into the wooden structure. I created modular mounting points that can accommodate different microcontroller configurations, ensuring the design remains flexible for future iterations.</p>
 
                     <div class="tech-stack">
-                        <span>Raspberry Pi 4</span>
-                        <span>Camera Module</span>
+                        <span>Cedar Wood Construction ✓</span>
+                        <span>ESP32 (Planned)</span>
+                        <span>Solar Panel (Planned)</span>
                         <span>PIR Motion Sensor</span>
-                        <span>Python</span>
-                        <span>Cedar Wood</span>
-                        <span>Basic Notifications</span>
+                        <span>Improved Camera Module</span>
+                        <span>WiFi Connectivity</span>
+                        <span>Python/C++</span>
                     </div>
 
-                    <h2>Electronic System Implementation</h2>
-                    <p>The electronic system centers around a Raspberry Pi that coordinates between the motion sensor and camera module. When the PIR (passive infrared) sensor detects movement, it triggers the Raspberry Pi to activate the camera and capture a timestamped photograph. The Python software I wrote handles the sensor input processing, camera control, and basic notification system.</p>
+                    <h2>Electronic System Development (Incomplete)</h2>
+                    <p>My initial approach centered around a Raspberry Pi coordinating between the motion sensor and camera module. I successfully implemented the basic functionality - PIR sensor triggering photo capture with timestamps - but several critical issues emerged during testing that prevented completion. The Raspberry Pi's power consumption was too high for reliable outdoor operation, and the camera I purchased was disappointingly blurry. Additionally, the weatherproof box I initially designed wasn't weatherproof enough for long-term outdoor deployment.</p>
                     
                     <div class="process">
                         <div class="process-step">
                             <h3>Motion Detection</h3>
-                            <p>The PIR sensor detects infrared signature changes from warm-blooded visitors and sends an interrupt signal to the Raspberry Pi, initiating the photo capture sequence.</p>
+                            <p>PIR sensor detects infrared changes from bird visitors. This part worked well in initial testing, with good sensitivity to bird-sized movements while filtering out most false triggers.</p>
                         </div>
                         <div class="process-step">
-                            <h3>Photo Capture</h3>
-                            <p>When motion is detected, the camera module captures a high-resolution image with timestamp information, storing it locally on the Raspberry Pi's storage.</p>
+                            <h3>Power Supply (Needs Redesign)</h3>
+                            <p>Raspberry Pi power consumption was too high for battery operation. For the next iteration, I'm considering adding a small solar panel to help with charging and make the system more self-sufficient. This would eliminate the need for frequent battery changes or power cables.</p>
                         </div>
                         <div class="process-step">
-                            <h3>Basic Notifications</h3>
-                            <p>The system sends simple notifications to my phone when activity is detected, allowing me to know when birds are visiting the feeder in real-time.</p>
+                            <h3>Weatherproofing (Major Challenge)</h3>
+                            <p>This is one of the hardest parts of the project and is not finished. The initial weatherproof box design wasn't sufficient for long-term outdoor deployment. I'm planning to use tightly sealed components and silica gel or similar desiccants to drain any remaining moisture that makes it in.</p>
                         </div>
                     </div>
 
-                    <h2>Software Development</h2>
-                    <p>I developed Python scripts to handle the coordination between hardware components. The main program runs continuously in the background, monitoring the PIR sensor for motion events. When triggered, it activates the camera, captures an image, saves it with a timestamp, and sends a basic notification to alert me of the bird visit.</p>
+                    <h2>Software Development Progress (Partial)</h2>
+                    <p>I developed initial Python scripts for the Raspberry Pi implementation that successfully handled basic functionality. The system could detect motion, trigger photo capture, and log events. However, the power-hungry nature of running a full Linux system continuously made this approach impractical for outdoor deployment.</p>
                     
-                    <p>The software architecture includes:</p>
+                    <p>Completed software development includes:</p>
                     <ul>
-                        <li>Motion detection using PIR sensor GPIO interrupts</li>
-                        <li>Camera module control for image capture</li>
-                        <li>File management system for storing photos with timestamps</li>
-                        <li>Simple notification system for mobile alerts</li>
-                        <li>Basic logging to track system activity</li>
+                        <li>Functional PIR sensor interrupt handling (working)</li>
+                        <li>Basic camera control and timestamping (working but poor image quality)</li>
+                        <li>File management for local photo storage (working)</li>
+                    </ul>
+                    
+                    <p>Future development planned for next iteration:</p>
+                    <ul>
+                        <li>ESP32-based system with lower power consumption</li>
+                        <li>WiFi-based notification system</li>
+                        <li>Power management and sleep modes</li>
+                        <li>Weather data integration for better triggering logic</li>
                     </ul>
 
-                    <h2>Technical Challenges</h2>
+                    <h2>Technical Challenges & Lessons Learned</h2>
                     <div class="challenges">
                         <div class="challenge">
-                            <h3>Weather Protection</h3>
-                            <p>Protecting electronic components from moisture while maintaining camera visibility and motion sensor functionality.</p>
-                            <p><strong>Solution:</strong> I designed a sealed electronic compartment with a transparent window for the camera and proper weatherproofing for the motion sensor, using silicone seals and careful cable routing.</p>
+                            <h3>Power Consumption Issues</h3>
+                            <p>The Raspberry Pi consumed far more power than anticipated, making battery operation impractical and requiring frequent manual charging or permanent power cables.</p>
+                            <p><strong>Next Approach:</strong> ESP32 uses significantly less power and can operate efficiently on solar power with proper power management and sleep modes between motion events.</p>
                         </div>
                         <div class="challenge">
-                            <h3>False Motion Triggers</h3>
-                            <p>Initial testing showed triggers from wind-blown leaves, changing shadows, and small insects rather than birds.</p>
-                            <p><strong>Solution:</strong> I adjusted the PIR sensor sensitivity settings and positioning to reduce false positives from non-bird movement, though some environmental triggers still occur.</p>
+                            <h3>Image Quality Problems</h3>
+                            <p>The Raspberry Pi camera module produced consistently blurry images, making it difficult to identify bird species or capture quality wildlife photos.</p>
+                            <p><strong>Next Approach:</strong> Researching higher-quality camera modules compatible with ESP32, with better autofocus and image stabilization capabilities.</p>
                         </div>
                         <div class="challenge">
-                            <h3>Power Supply</h3>
-                            <p>Providing reliable power for continuous outdoor operation of the Raspberry Pi and camera system.</p>
-                            <p><strong>Solution:</strong> I implemented a combination of rechargeable battery power with periodic charging cycles to maintain operation between power source access.</p>
+                            <h3>Weatherproofing Concerns</h3>
+                            <p>Initial weatherproofing attempts were not sufficient for long-term outdoor deployment, with concerns about humidity and water infiltration affecting electronics.</p>
+                            <p><strong>Next Approach:</strong> Complete redesign of the waterproofing system with better seals, drainage, and component protection to handle rain and humidity long-term.</p>
                         </div>
                     </div>
 
-                    <h2>Results and Wildlife Observation</h2>
-                    <p>The completed system successfully captures photos of visiting birds and provides real-time notifications when wildlife activity occurs at the feeder. Since deployment, I've been able to observe and photograph various bird species that visit throughout different times of day, including cardinals, blue jays, chickadees, and several woodpecker species.</p>
+                    <h2>Current Status & Lessons Learned</h2>
+                    <p>While the physical feeder structure is complete and functioning well for feeding birds, the electronic monitoring system is not finished. The project was at a point where it wouldn't last long-term, and I felt it wasn't worth putting up in its current state, so I immediately returned to the drawing board for prototype 2.</p>
                     
-                    <p>The system has been particularly valuable for understanding bird behavior patterns - I can see which times of day are most active and which types of seeds attract different species. While the occasional false trigger from environmental factors still occurs, the majority of notifications correspond to actual bird visits.</p>
+                    <p>The project has been educational in demonstrating the gap between initial design concepts and real-world implementation challenges. Issues with power consumption, image quality, and weatherproofing highlighted the importance of thorough component evaluation and environmental testing before full deployment.</p>
                     
-                    <p>This project successfully merged hardware fabrication, embedded programming, and mobile connectivity into a functional tool for backyard wildlife observation. The experience demonstrated the practical challenges of outdoor IoT deployment and the importance of robust environmental design considerations.</p>
+                    <p>Key lessons learned:</p>
+                    <ul>
+                        <li>Camera quality is crucial - the blurry camera I initially bought made the project unsuitable for its intended purpose</li>
+                        <li>Weatherproofing is more complex than anticipated - initial design wasn't sufficient for outdoor deployment</li>
+                        <li>Power management is critical for outdoor IoT projects - Raspberry Pi was too power-hungry</li>
+                        <li>Sometimes it's better to pause and redesign rather than deploy a subpar solution</li>
+                    </ul>
 
-                    <h2>Future Improvements</h2>
-                    <p>Potential enhancements for future versions could include improved weatherproofing, better power management for extended operation, and refinements to reduce false triggers from environmental factors. The modular design allows for easy updates and modifications as new ideas arise.</p>
+                    <h2>Future Plans for Prototype 2</h2>
+                    <p>When I return to this project, the next version will address the fundamental issues discovered during initial testing:</p>
+                    
+                    <div class="process">
+                        <div class="process-step">
+                            <h3>ESP32 Migration</h3>
+                            <p>Switching from Raspberry Pi to ESP32 for dramatically lower power consumption, built-in WiFi/Bluetooth, and better real-time performance for motion detection.</p>
+                        </div>
+                        <div class="process-step">
+                            <h3>Solar Power Integration</h3>
+                            <p>Adding a small solar panel to the feeder roof to provide sustainable power, eliminating the need for battery changes or power cables running to the feeder. This was a later addition I thought of to make the system more self-sufficient.</p>
+                        </div>
+                        <div class="process-step">
+                            <h3>Improved Waterproofing</h3>
+                            <p>Complete redesign of the weatherproofing system using tightly sealed components and silica gel or similar desiccants to prevent water infiltration and humidity buildup that could damage electronics over time.</p>
+                        </div>
+                        <div class="process-step">
+                            <h3>Better Camera Module</h3>
+                            <p>Researching and implementing a higher-quality camera module that can produce clear images suitable for bird identification and wildlife monitoring.</p>
+                        </div>
+                    </div>
+                    
+                    <p>The modular design of the wooden structure allows for these electronic upgrades without requiring reconstruction of the feeder itself. The project is currently on hold while I focus on other priorities, but the foundation is solid for future development.</p>
 
                     <div class="project-navigation">
                         <a href="../index.html" class="btn back-btn">Back to Projects</a>

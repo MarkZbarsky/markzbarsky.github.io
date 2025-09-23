@@ -53,7 +53,9 @@
                 
                 <div class="project-description">
                     <h2>Overview</h2>
-                    <p>I repurposed a retired desktop computer into a comprehensive Ubuntu server platform, implementing enterprise-grade features including redundant storage and secure remote access capabilities. The storage architecture utilizes RAID1 mirroring for data protection and reliability, while the media server component provides network-accessible content streaming throughout my home network. To enable secure remote connectivity, I configured a WireGuard VPN tunnel integrated with PiVPN for simplified key management and user provisioning.</p>
+                    <p>I began repurposing a retired desktop computer into a comprehensive Ubuntu server platform, with plans to implement enterprise-grade features including redundant storage and secure remote access capabilities. The storage architecture was designed to utilize RAID1 mirroring for data protection and reliability, while the media server component would provide network-accessible content streaming throughout my home network. I also planned to configure a WireGuard VPN tunnel integrated with PiVPN for simplified key management and user provisioning.</p>
+                    
+                    <p><strong>Current Status:</strong> This project is currently on hold as I got busy with other priorities. While I've made significant progress on the planning and initial setup, not all functionality is fully implemented yet. This represents the final plan for what the system will become when I have time to complete it.</p>
                     
                     <div class="project-gallery">
                         <div class="gallery-item">
@@ -62,8 +64,8 @@
                         </div>
                     </div>
 
-                    <h2>System Architecture</h2>
-                    <p>The server runs Ubuntu Server LTS as the base operating system, providing a stable foundation for various services. The hardware configuration includes dual hard drives configured in RAID1 for data redundancy, ensuring continuous operation even if one drive fails. This configuration provides both data protection and improved read performance for concurrent access scenarios.</p>
+                    <h2>System Architecture (Planned)</h2>
+                    <p>The server is designed to run Ubuntu Server LTS as the base operating system, providing a stable foundation for various services. The hardware configuration includes dual hard drives that will be configured in RAID1 for data redundancy, ensuring continuous operation even if one drive fails. This configuration is planned to provide both data protection and improved read performance for concurrent access scenarios.</p>
                     
                     <div class="tech-stack">
                         <span>Ubuntu Server</span>
@@ -75,13 +77,13 @@
                         <span>Network Storage</span>
                     </div>
 
-                    <h2>Storage and Data Management</h2>
-                    <p>The RAID1 implementation uses Linux's mdadm software RAID system, which automatically maintains synchronized copies of all data across both drives. This setup provides immediate failover capability and eliminates single points of failure in the storage subsystem. Regular monitoring scripts check array health and send notifications if any issues arise.</p>
+                    <h2>Storage and Data Management (In Development)</h2>
+                    <p>The planned RAID1 implementation will use Linux's mdadm software RAID system, which automatically maintains synchronized copies of all data across both drives. This setup is designed to provide immediate failover capability and eliminate single points of failure in the storage subsystem. Regular monitoring scripts will check array health and send notifications if any issues arise.</p>
                     
-                    <p>The network storage functionality allows seamless file access from any device on the local network through SMB/CIFS shares. This creates a centralized backup location and shared workspace for all household devices.</p>
+                    <p>The network storage functionality is planned to allow seamless file access from any device on the local network through SMB/CIFS shares. This will create a centralized backup location and shared workspace for all household devices.</p>
 
-                    <h2>Remote Access and Security</h2>
-                    <p>The VPN implementation uses WireGuard for its superior performance and security characteristics compared to traditional VPN protocols. PiVPN simplifies the user management process, allowing easy addition and removal of devices with automated key generation and distribution.</p>
+                    <h2>Remote Access and Security (Planned)</h2>
+                    <p>The planned VPN implementation will use WireGuard for its superior performance and security characteristics compared to traditional VPN protocols. PiVPN will simplify the user management process, allowing easy addition and removal of devices with automated key generation and distribution.</p>
                     
                     <div class="process">
                         <div class="process-step">
@@ -98,13 +100,13 @@
                         </div>
                     </div>
 
-                    <h2>Power Management Innovation</h2>
-                    <p>A particularly elegant addition involved implementing Etherwake functionality for network-based wake-on-LAN capabilities, allowing the server to remain in low-power standby mode until explicitly activated remotely. This power management approach significantly reduces energy consumption while maintaining on-demand availability.</p>
+                    <h2>Power Management Innovation (Planned)</h2>
+                    <p>A particularly elegant addition I'm planning involves implementing Etherwake functionality for network-based wake-on-LAN capabilities, allowing the server to remain in low-power standby mode until explicitly activated remotely. This power management approach will significantly reduce energy consumption while maintaining on-demand availability.</p>
                     
-                    <p>The system can be awakened from anywhere in the world through the VPN connection, providing full remote access capabilities without requiring the server to run continuously. Automated scripts handle graceful shutdown after periods of inactivity, maximizing energy efficiency.</p>
+                    <p>The system will be designed to be awakened from anywhere in the world through the VPN connection, providing full remote access capabilities without requiring the server to run continuously. Automated scripts will handle graceful shutdown after periods of inactivity, maximizing energy efficiency.</p>
 
-                    <h2>Services and Applications</h2>
-                    <p>Beyond basic file storage, the server hosts several applications:</p>
+                    <h2>Services and Applications (Planned)</h2>
+                    <p>Beyond basic file storage, the server is designed to host several applications:</p>
                     <ul>
                         <li>Media streaming server with transcoding capabilities for various device formats</li>
                         <li>Personal cloud storage accessible through web interface</li>
@@ -121,8 +123,10 @@
                         </div>
                     </div>
 
-                    <h2>Results and Ongoing Development</h2>
-                    <p>The project encompassed network administration, Linux system configuration, security protocol implementation, and power management optimization, resulting in a robust home infrastructure solution that balances functionality with operational efficiency. This project provided invaluable experience with enterprise-level system administration concepts and reinforced the importance of proper documentation and disaster recovery planning.</p>
+                    <h2>Current Status and Future Development</h2>
+                    <p>This project is currently on hold as I got busy with other priorities, but it represents a comprehensive plan for a robust home infrastructure solution that balances functionality with operational efficiency. When completed, it will encompass network administration, Linux system configuration, security protocol implementation, and power management optimization. The planning phase has already provided valuable experience with enterprise-level system administration concepts and reinforced the importance of proper documentation and disaster recovery planning.</p>
+                    
+                    <p>While not all functionality is fully implemented yet, the foundation and detailed planning are in place for when I have time to complete the project. The modular design allows for incremental implementation of features as time permits.</p>
 
                     <div class="project-navigation">
                         <a href="../index.html" class="btn back-btn">Back to Projects</a>
