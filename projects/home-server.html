@@ -24,6 +24,7 @@
                         <a href="smart-birdfeeder.html">Smart Birdfeeder</a>
                         <a href="pixie-radio.html">Pixie Radio</a>
                         <a href="mips-calculator.html">MIPS Calculator</a>
+                        <a href="fsm-adventure-game.html">FSM Adventure Game</a>
                         <a href="home-server.html">Home Server</a>
                     </div>
                 </li>
@@ -47,25 +48,16 @@
     <main>
         <section class="project-details">
             <div class="container">
-                <div class="project-hero">
-                    <img src="../images/server_main.jpg" alt="Home Server Setup">
-                </div>
                 
                 <div class="project-description">
                     <h2>Overview</h2>
-                    <p>I began repurposing a retired desktop computer into a comprehensive Ubuntu server platform, with plans to implement enterprise-grade features including redundant storage and secure remote access capabilities. The storage architecture was designed to utilize RAID1 mirroring for data protection and reliability, while the media server component would provide network-accessible content streaming throughout my home network. I also planned to configure a WireGuard VPN tunnel integrated with PiVPN for simplified key management and user provisioning.</p>
+                    <p>I repurposed a retired desktop computer into a comprehensive Ubuntu server platform, implementing enterprise-grade features including redundant storage and secure remote access capabilities. The storage architecture utilizes RAID1 mirroring for data protection and reliability, and I've configured a WireGuard VPN tunnel integrated with PiVPN for simplified key management and user provisioning.</p>
                     
-                    <p><strong>Current Status:</strong> This project is currently on hold as I got busy with other priorities. While I've made significant progress on the planning and initial setup, not all functionality is fully implemented yet. This represents the final plan for what the system will become when I have time to complete it.</p>
+                    <p><strong>Current Status:</strong> The core infrastructure (storage and remote access) is complete and operational. Some additional services and power management features are still in development as I have time to work on them.</p>
                     
-                    <div class="project-gallery">
-                        <div class="gallery-item">
-                            <img src="../images/server_setup.jpg" alt="Server Internal Setup">
-                            <p>Internal hardware configuration with RAID storage</p>
-                        </div>
-                    </div>
 
-                    <h2>System Architecture (Planned)</h2>
-                    <p>The server is designed to run Ubuntu Server LTS as the base operating system, providing a stable foundation for various services. The hardware configuration includes dual hard drives that will be configured in RAID1 for data redundancy, ensuring continuous operation even if one drive fails. This configuration is planned to provide both data protection and improved read performance for concurrent access scenarios.</p>
+                    <h2>System Architecture</h2>
+                    <p>The server runs Ubuntu Server LTS as the base operating system, providing a stable foundation for various services. The hardware configuration includes dual hard drives configured in RAID1 for data redundancy, ensuring continuous operation even if one drive fails. This configuration provides both data protection and improved read performance for concurrent access scenarios.</p>
                     
                     <div class="tech-stack">
                         <span>Ubuntu Server</span>
@@ -77,13 +69,13 @@
                         <span>Network Storage</span>
                     </div>
 
-                    <h2>Storage and Data Management (In Development)</h2>
-                    <p>The planned RAID1 implementation will use Linux's mdadm software RAID system, which automatically maintains synchronized copies of all data across both drives. This setup is designed to provide immediate failover capability and eliminate single points of failure in the storage subsystem. Regular monitoring scripts will check array health and send notifications if any issues arise.</p>
+                    <h2>Storage and Data Management</h2>
+                    <p>The RAID1 implementation uses Linux's mdadm software RAID system, which automatically maintains synchronized copies of all data across both drives. This setup provides immediate failover capability and eliminates single points of failure in the storage subsystem. Regular monitoring scripts check array health and send notifications if any issues arise.</p>
                     
-                    <p>The network storage functionality is planned to allow seamless file access from any device on the local network through SMB/CIFS shares. This will create a centralized backup location and shared workspace for all household devices.</p>
+                    <p>The network storage functionality allows seamless file access from any device on the local network through SMB/CIFS shares. This creates a centralized backup location and shared workspace for all household devices.</p>
 
-                    <h2>Remote Access and Security (Planned)</h2>
-                    <p>The planned VPN implementation will use WireGuard for its superior performance and security characteristics compared to traditional VPN protocols. PiVPN will simplify the user management process, allowing easy addition and removal of devices with automated key generation and distribution.</p>
+                    <h2>Remote Access and Security</h2>
+                    <p>The VPN implementation uses WireGuard for its superior performance and security characteristics compared to traditional VPN protocols. PiVPN simplifies the user management process, allowing easy addition and removal of devices with automated key generation and distribution.</p>
                     
                     <div class="process">
                         <div class="process-step">
