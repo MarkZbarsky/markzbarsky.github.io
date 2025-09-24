@@ -1,0 +1,13 @@
+// WIN path: E,S,W,E,E 
+0010
+0100  
+0001
+0010
+0010
+1111  // Reset signal
+// DIE path: E,S,E,E 
+0010
+0100
+0010
+0010
+1111  // End marker

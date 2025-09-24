@@ -49,12 +49,12 @@
         <section class="project-details">
             <div class="container">
                 <div class="project-hero">
-                    <img src="../images/Lab3_waveform.jpg" alt="FSM Adventure Game Waveform">
+                    <img src="../images/lab3_waveform.jpg" alt="FSM Adventure Game Waveform">
                 </div>
                 
                 <div class="project-description">
                     <h2>Overview</h2>
-                    <p>This was one of my first week-long labs in Digital Design and Computer Architecture, designed to introduce finite state machine concepts through an interactive adventure game. The project involved designing two communicating FSMs in SystemVerilog - one tracking the player's location through seven different rooms, and another managing whether the player possesses a sword needed to win the game.</p>
+                    <p>This was one of my first week-long labs in Computer Hardware Design, designed to introduce finite state machine concepts through an interactive adventure game. The project involved designing two communicating FSMs in SystemVerilog - one tracking the player's location through seven different rooms, and another managing whether the player possesses a sword needed to win the game.</p>
                     
                     <p>While meant to be completed quickly as an educational exercise, this project provided solid foundations in digital design methodology, hardware description languages, and FPGA development using Quartus.</p>
 
@@ -88,17 +88,28 @@
                     
                     <div class="project-gallery two-items">
                         <div class="gallery-item">
-                            <img src="../images/roomRTL.png" alt="Room FSM RTL">
+                            <img src="../images/roomRTL.PNG" alt="Room FSM RTL">
                             <p>Room FSM synthesized hardware implementation</p>
                         </div>
                         <div class="gallery-item">
-                            <img src="../images/swordRTL.png" alt="Sword FSM RTL">
+                            <img src="../images/swordRTL.PNG" alt="Sword FSM RTL">
                             <p>Sword FSM synthesized hardware implementation</p>
                         </div>
                     </div>
 
                     <h2>Verification and Testing</h2>
                     <p>I developed a comprehensive testbench with test vectors covering both winning and losing game scenarios. The winning path (E→S→W→E→E) demonstrates collecting the sword before facing the dragon, while the losing path (E→S→E→E) shows the consequences of entering the Dragon Den without the sword. The waveform analysis confirmed correct state transitions and FSM communication.</p>
+
+                    <h2>SystemVerilog Implementation</h2>
+                    <p>The complete SystemVerilog implementation demonstrates clean FSM design patterns and proper module hierarchy. The code is organized into separate modules for each FSM and a top-level module that instantiates and connects them.</p>
+                    
+                    <div class="tech-stack">
+                        <span><a href="fsm-code/sword_fsm.sv" target="_blank" style="color: inherit; text-decoration: none;">sword_fsm.sv</a></span>
+                        <span><a href="fsm-code/room_fsm.sv" target="_blank" style="color: inherit; text-decoration: none;">room_fsm.sv</a></span>
+                        <span><a href="fsm-code/adventure_game.sv" target="_blank" style="color: inherit; text-decoration: none;">adventure_game.sv</a></span>
+                        <span><a href="fsm-code/testbench.sv" target="_blank" style="color: inherit; text-decoration: none;">testbench.sv</a></span>
+                        <span><a href="fsm-code/testinputs.tv" target="_blank" style="color: inherit; text-decoration: none;">testinputs.tv</a></span>
+                    </div>
 
                     <h2>Results</h2>
                     <p>The design successfully synthesized in Quartus and passed all verification tests. The RTL viewer confirmed the expected hardware implementation with proper state encoding and transition logic. This project provided valuable experience with digital design methodology, SystemVerilog coding practices, and FPGA development tools that formed the foundation for more complex digital systems projects.</p>
