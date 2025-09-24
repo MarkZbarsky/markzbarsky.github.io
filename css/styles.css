@@ -836,3 +836,104 @@ footer p {
 .dropdown-content a::after {
   display: none !important;
 }
+
+/* Code Viewer Styles */
+.code-file-btn {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.code-file-btn:hover {
+  background: var(--primary) !important;
+  color: var(--white) !important;
+  transform: translateY(-2px);
+}
+
+.code-file-btn.active {
+  background: var(--primary) !important;
+  color: var(--white) !important;
+}
+
+.code-viewer {
+  margin: 30px 0;
+  background: var(--white);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 30px rgba(74, 144, 226, 0.08);
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.code-viewer.active {
+  max-height: 600px;
+  opacity: 1;
+}
+
+.code-header {
+  background: linear-gradient(135deg, var(--light), #e8f2ff);
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.code-filename {
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 1rem;
+}
+
+.code-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--warm-gray);
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.code-close-btn:hover {
+  background: var(--border);
+  color: var(--text);
+}
+
+.code-content {
+  padding: 20px;
+  margin: 0;
+  background: var(--white);
+  color: var(--text);
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  overflow-x: auto;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.code-content::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.code-content::-webkit-scrollbar-track {
+  background: var(--light);
+}
+
+.code-content::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+.code-content::-webkit-scrollbar-thumb:hover {
+  background: var(--warm-gray);
+}

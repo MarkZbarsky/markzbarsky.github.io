@@ -10,6 +10,271 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="../js/script.js" defer></script>
+    <script>
+        // Code viewer functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeFiles = {
+                sword_fsm: `//Sword_module
+module sword_fsm(
+	input logic clk, reset,
+	input logic [2:0] curr_room, 
+	output logic has_sword
+);
+typedef enum logic {
+NO_SWORD = 1'b0,
+HAS_SWORD = 1'b1
+} sword_state;
+
+sword_state state, next_state;
+
+//flip flop logic
+always_ff @(posedge clk, posedge reset) begin
+	if (reset)
+		state <= NO_SWORD;
+	else
+		state <= next_state;
+end
+
+//next state logic
+always_comb begin
+	case (state)
+		NO_SWORD: begin
+			if (curr_room == 3'b011) //secret stash room
+				next_state = HAS_SWORD;
+			
+			else 
+				next_state = NO_SWORD;
+		end	
+		HAS_SWORD: next_state = HAS_SWORD;
+		default: next_state = NO_SWORD;
+	endcase
+end
+
+assign has_sword = (state == HAS_SWORD);
+
+endmodule`,
+                room_fsm: `module room_fsm (
+	input logic clk, reset,
+	input logic N, S, E, W,
+	input logic has_sword,
+	output logic [2:0] curr_room,
+	output logic WIN, DIE
+);
+
+typedef enum logic [2:0] {
+CAVE_CACOPHONY = 3'b000,
+TWISTY_TUNNEL = 3'b001,
+RAPID_RIVER = 3'b010,
+SECRET_SWORD = 3'b011,
+DRAGON_DEN = 3'b100,
+GREVIOUS_GRAVEYARD = 3'b101,
+VICTORY_VAULT = 3'b110
+} room_state;
+
+room_state state, next_state;
+
+	always_ff @(posedge clk, posedge reset) begin
+		if (reset)
+			state <= CAVE_CACOPHONY;
+		else
+			state <= next_state;
+	end
+	
+	always_comb begin
+	
+		case (state)
+			CAVE_CACOPHONY: begin
+				if (E) next_state = TWISTY_TUNNEL;
+				else next_state = CAVE_CACOPHONY;
+			end
+			TWISTY_TUNNEL: begin
+				if (W) next_state = CAVE_CACOPHONY;
+				else if (S) next_state = RAPID_RIVER;
+				else next_state = TWISTY_TUNNEL;
+			end
+			RAPID_RIVER: begin
+				if (W) next_state = SECRET_SWORD;
+				else if (N) next_state = TWISTY_TUNNEL;
+				else if (E) next_state = DRAGON_DEN;
+				else next_state = RAPID_RIVER;
+			end
+			SECRET_SWORD: begin
+				if (E) next_state = RAPID_RIVER;
+				else next_state = SECRET_SWORD;
+			end
+			DRAGON_DEN: begin
+				if (E) begin
+					if (has_sword) next_state = VICTORY_VAULT;
+					else next_state = GREVIOUS_GRAVEYARD;
+				end
+				else next_state = DRAGON_DEN;
+			end
+			GREVIOUS_GRAVEYARD: next_state = GREVIOUS_GRAVEYARD;		
+			VICTORY_VAULT: next_state = VICTORY_VAULT;
+	
+			default: next_state = CAVE_CACOPHONY;
+		endcase
+	end
+	
+	
+	assign curr_room = state;
+	assign WIN = (state == VICTORY_VAULT);
+	assign DIE = (state == GREVIOUS_GRAVEYARD);
+endmodule`,
+                adventure_game: `module adventure_game(
+	input logic clk, reset,
+	input logic N, S, E, W,
+	output logic WIN, DIE
+	);
+	
+	logic [2:0] curr_room;
+	logic has_sword;
+	
+	room_fsm room (
+		.clk(clk),
+		.reset(reset),
+		.N(N), .S(S), .E(E), .W(W),
+		.has_sword(has_sword),
+		.curr_room(curr_room),
+		.WIN(WIN),
+		.DIE(DIE)
+	);
+	sword_fsm sword (
+		.clk(clk),
+		.reset(reset),
+		.curr_room(curr_room),
+		.has_sword(has_sword)
+	);
+	
+endmodule`,
+                testbench: `module testbench;
+    logic clk = 0;
+    logic reset;
+    logic N, S, E, W;
+    logic WIN, DIE;
+    
+    // Instantiate DUT
+    adventure_game dut (
+        .clk(clk),
+        .reset(reset), 
+        .N(N), .S(S), .E(E), .W(W),
+        .WIN(WIN),
+        .DIE(DIE)
+    );
+    
+    // Clock generation
+    always #5 clk = ~clk;
+    
+    // Test vectors
+    logic [3:0] vectors [0:15]; // N,S,E,W
+    int i;
+    
+    initial begin
+        $readmemb("testinputs.tv", vectors);
+        
+        // Initialize
+        reset = 1;
+        N = 0; S = 0; E = 0; W = 0;
+        repeat(2) @(posedge clk);
+        reset = 0;
+        
+        // Apply test vectors
+        for (i = 0; i < 16; i++) begin
+            if (vectors[i] === 4'b1111) begin
+                // Reset between tests
+                reset = 1;
+                @(posedge clk);
+                reset = 0;
+                $display("=== New Test ===");
+            end 
+				else begin
+                {N, S, E, W} = vectors[i];
+                @(posedge clk);
+                $display("Time %0t: N=%b S=%b E=%b W=%b WIN=%b DIE=%b", 
+                         $time, N, S, E, W, WIN, DIE);
+            end
+            
+            if (vectors[i] === 4'bxxxx) break; // End of file
+        end
+        $finish;
+    end
+endmodule`,
+                testinputs: `// WIN path: E,S,W,E,E 
+0010
+0100  
+0001
+0010
+0010
+1111  // Reset signal
+// DIE path: E,S,E,E 
+0010
+0100
+0010
+0010
+1111  // End marker`
+            };
+
+            const codeViewer = document.getElementById('codeViewer');
+            const codeFilename = document.getElementById('codeFilename');
+            const codeContent = document.getElementById('codeContent');
+            const codeCloseBtn = document.getElementById('codeCloseBtn');
+            const codeFileButtons = document.querySelectorAll('.code-file-btn');
+            
+            let currentActiveButton = null;
+
+            function showCode(fileKey, filename, button) {
+                // If clicking the same button, toggle off
+                if (currentActiveButton === button && codeViewer.classList.contains('active')) {
+                    hideCode();
+                    return;
+                }
+
+                // Remove active class from previous button
+                if (currentActiveButton) {
+                    currentActiveButton.classList.remove('active');
+                }
+
+                // Set new active button
+                currentActiveButton = button;
+                button.classList.add('active');
+
+                // Update content
+                codeFilename.textContent = filename;
+                codeContent.textContent = codeFiles[fileKey];
+                
+                // Show viewer with smooth transition
+                codeViewer.classList.add('active');
+                
+                // Smooth scroll to code viewer
+                setTimeout(() => {
+                    codeViewer.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'nearest' 
+                    });
+                }, 100);
+            }
+
+            function hideCode() {
+                codeViewer.classList.remove('active');
+                if (currentActiveButton) {
+                    currentActiveButton.classList.remove('active');
+                    currentActiveButton = null;
+                }
+            }
+
+            // Add click handlers to file buttons
+            codeFileButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const fileKey = button.getAttribute('data-file');
+                    const filename = button.textContent;
+                    showCode(fileKey, filename, button);
+                });
+            });
+
+            // Add click handler to close button
+            codeCloseBtn.addEventListener('click', hideCode);
+        });
+    </script>
 </head>
 <body>
     <nav class="navbar">
@@ -104,11 +369,19 @@
                     <p>The complete SystemVerilog implementation demonstrates clean FSM design patterns and proper module hierarchy. The code is organized into separate modules for each FSM and a top-level module that instantiates and connects them.</p>
                     
                     <div class="tech-stack">
-                        <span><a href="fsm-code/sword_fsm.sv" target="_blank" style="color: inherit; text-decoration: none;">sword_fsm.sv</a></span>
-                        <span><a href="fsm-code/room_fsm.sv" target="_blank" style="color: inherit; text-decoration: none;">room_fsm.sv</a></span>
-                        <span><a href="fsm-code/adventure_game.sv" target="_blank" style="color: inherit; text-decoration: none;">adventure_game.sv</a></span>
-                        <span><a href="fsm-code/testbench.sv" target="_blank" style="color: inherit; text-decoration: none;">testbench.sv</a></span>
-                        <span><a href="fsm-code/testinputs.tv" target="_blank" style="color: inherit; text-decoration: none;">testinputs.tv</a></span>
+                        <span class="code-file-btn" data-file="sword_fsm">sword_fsm.sv</span>
+                        <span class="code-file-btn" data-file="room_fsm">room_fsm.sv</span>
+                        <span class="code-file-btn" data-file="adventure_game">adventure_game.sv</span>
+                        <span class="code-file-btn" data-file="testbench">testbench.sv</span>
+                        <span class="code-file-btn" data-file="testinputs">testinputs.tv</span>
+                    </div>
+                    
+                    <div class="code-viewer" id="codeViewer">
+                        <div class="code-header">
+                            <span class="code-filename" id="codeFilename"></span>
+                            <button class="code-close-btn" id="codeCloseBtn">×</button>
+                        </div>
+                        <pre class="code-content" id="codeContent"></pre>
                     </div>
 
                     <h2>Results</h2>
