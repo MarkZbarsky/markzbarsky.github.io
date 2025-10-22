@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handwritten Digit Classification (Machine Learning from Data HW7) | Mark Zbarsky</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/media-queries.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Prism.js for code highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+    <!-- MathJax for mathematical notation -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../js/script.js" defer></script>
+    <style>
+        .project-hero img { max-width: 600px; margin: 0 auto; display: block; }
+        .img-row { display: flex; gap: 30px; justify-content: center; margin: 15px 0 30px 0; }
+        .img-row img { max-width: 385px; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.09); }
+        .figure-caption { text-align: center; margin-bottom: 10px; font-size: 0.98em; color: #555; }
+        .code-container { margin: 24px 0; }
+        .error-results {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 15px 20px;
+            margin: 15px 0 25px 0;
+            border-radius: 4px;
+        }
+        .error-results p {
+            margin: 5px 0;
+            font-size: 1.05em;
+        }
+        .error-results strong {
+            color: #333;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">Mark Zbarsky</a>
+            <ul class="nav-links">
+              <li class="dropdown">
+                <a href="../index.html" class="dropbtn">Projects <i class="dropdown-arrow">▼</i></a>
+                <div class="dropdown-content">
+                  <a href="wind-turbine.html">Wind Turbine</a>
+                  <a href="line-follower.html">Line Follower</a>
+                  <a href="smart-birdfeeder.html">Smart Birdfeeder</a>
+                  <a href="pixie-radio.html">Pixie Radio</a>
+                  <a href="mips-calculator.html">MIPS Calculator</a>
+                  <a href="fsm-adventure-game.html">FSM Adventure Game</a>
+                  <a href="home-server.html">Home Server</a>
+                  <a href="digit-predictor.html">Handwritten Digit Classifier</a>
+                </div>
+              </li>
+              <li><a href="../about.html">About</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    <header class="project-header">
+        <div class="container">
+            <h1>Classifying Handwritten Digits with Machine Learning</h1>
+            <p class="project-meta">Machine Learning from Data HW7 — October 2025</p>
+        </div>
+    </header>
+    <main>
+        <section class="project-details">
+            <div class="container">
+                <div class="project-hero">
+                    <img src="../images/Stochastic_TestData.png" alt="Handwritten Digits Feature Visualization" />
+                </div>
+                <div class="project-description">
+                    <h2>Overview</h2>
+                    
+                    <div style="display: flex; gap: 40px; justify-content: center; align-items: center; margin: 25px 0;">
+                        <div style="text-align: center;">
+                            <img src="../images/digit1.png" alt="Example of handwritten digit 1" style="max-width: 150px; border: 2px solid #ddd; padding: 10px; background: white; border-radius: 8px;">
+                            <p style="margin-top: 10px; font-weight: 600; color: #333;">Digit 1</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <img src="../images/digit5.png" alt="Example of handwritten digit 5" style="max-width: 150px; border: 2px solid #ddd; padding: 10px; background: white; border-radius: 8px;">
+                            <p style="margin-top: 10px; font-weight: 600; color: #333;">Digit 5</p>
+                        </div>
+                    </div>
+
+                    <p>
+                    This project explores the classification of handwritten digits <strong>(1s vs 5s)</strong> using several machine learning techniques, focusing on <strong>feature engineering</strong> and <strong>algorithmic performance</strong>. The dataset consisted of grayscale digit images, and the primary objective was to separate the two classes reliably by extracting informative features and applying linear and logistic approaches.
+                    </p>
+                    
+                    <p>
+                    When working with handwritten digits, it's important to recognize that no two digits will look exactly the same - and some people frankly have terrible handwriting. This inherent variability means achieving zero error is essentially impossible. The best we can do is build a model that makes the most educated guess possible based on the patterns it learns from the training data.
+                    </p>
+
+                    <h2>Feature Engineering</h2>
+                    <p>
+                        I chose and implemented two custom features to enable separation of the digits:
+                        <ul>
+                            <li><strong>Vertical Symmetry:</strong> Measures the absolute difference between intensities of the left and right halves of each image. More negative values indicate less symmetry.</li>
+                            <li><strong>Side vs Middle Intensity:</strong> Compares the summed pixel intensity of the outer columns (left/right) to the central columns (middle) of the image. Returns a proportion that highlights where the digit ink is most concentrated.</li>
+                        </ul>
+                        Reflecting back, the <em>side vs middle intensity</em> feature could likely be improved—a more distinguishing feature may yield better classification. Alternative features could consider stroke orientation or local variance.
+                    </p>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Feature Calculation (Python)</span>
+                        </div>
+                        <pre><code class="language-python">
+def vertical_symmetry_feature(image):
+    left_half = image[:, :8]
+    right_half = np.fliplr(image[:, 8:])
+    symmetry = -np.sum(np.abs(left_half - right_half)) / (16*8)
+    return float(symmetry)
+
+def side_vs_middle_feature(image):
+    left = np.sum(image[:, 0:5])
+    middle = np.sum(image[:, 5:11])
+    right = np.sum(image[:, 11:16])
+    sides = left + right
+    prop_sides = sides / (2*16*5)
+    prop_middle = middle / (16*6)
+    return float(prop_sides - prop_middle)
+                        </code></pre>
+                    </div>
+
+                    <h2>Classification Algorithms</h2>
+                    <p>
+                        After feature extraction, three main algorithms were tested:
+                    </p>
+                    <ul>
+                        <li><strong>Linear Regression + Pocket PLA:</strong> Used regression weights as initialization for the perceptron-like pocket algorithm, improving robustness.</li>
+                        <li><strong>Logistic Regression (Batch Gradient Descent):</strong> Traditional logistic regression using all data to update weights in each step.</li>
+                        <li><strong>Logistic Regression (Stochastic Gradient Descent):</strong> Faster convergence by updating on random individual samples; surprisingly, gave the best results in this scenario.</li>
+                    </ul>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Linear Regression / Pocket (Python)</span>
+                        </div>
+                        <pre><code class="language-python">
+def lin_reg(X, y):
+    X_bias = np.hstack([np.ones((X.shape[0], 1)), X])
+    w = np.linalg.pinv(X_bias.T @ X_bias) @ X_bias.T @ y
+    return w
+
+def pocket_pla(X, y, w_init, max_iter=1000):
+    X_aug = np.hstack([np.ones((X.shape[0], 1)), X])
+    w = w_init.copy()
+    pocket_w = w.copy()
+    best_error = np.sum(np.sign(X_aug @ w) != y)
+    for iter_count in range(max_iter):
+        predictions = np.sign(X_aug @ w)
+        misclassified = np.where(predictions != y)[0]
+        if len(misclassified) == 0:
+            return pocket_w, iter_count
+        i = misclassified[0]
+        w = w + y[i] * X_aug[i]
+        error = np.sum(np.sign(X_aug @ w) != y)
+        if error < best_error:
+            pocket_w = w.copy()
+            best_error = error
+    return pocket_w, best_error / y.shape[0]
+                        </code></pre>
+                    </div>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Logistic Regression (Batch/Stochastic)</span>
+                        </div>
+                        <pre><code class="language-python">
+def log_reg(X, y):
+    X_bias = np.hstack([np.ones((X.shape[0], 1)), X])
+    w = np.zeros(X_bias.shape[1])
+    lr = 0.01
+    y_01 = (y + 1) // 2
+    for iteration in range(5000):
+        z = X_bias @ w
+        probs = 1 / (1 + np.exp(-z))
+        grad = (1/X_bias.shape[0]) * (X_bias.T @ (probs - y_01))
+        w -= lr * grad
+    return w
+
+def stochastic_log_reg(X, y):
+    X_bias = np.hstack([np.ones((X.shape[0], 1)), X])
+    w = np.zeros(X_bias.shape[1])
+    lr = 0.01
+    y_01 = (y + 1) // 2
+    for epoch in range(500):
+        indices = np.random.permutation(X_bias.shape[0])
+        for i in indices:
+            z = X_bias[i] @ w
+            prob = 1 / (1 + np.exp(-z))
+            grad = (prob - y_01[i]) * X_bias[i]
+            w -= lr * grad
+    return w
+                        </code></pre>
+                    </div>
+                    <h2>Results: Linear vs Logistic Regression</h2>
+                    <p>Each algorithm was run on both <strong>training</strong> and <strong>test</strong> sets, reporting both in-sample and out-of-sample errors. Stochastic logistic regression consistently achieved the lowest test errors.</p>
+                    
+                    <div class="img-row">
+                        <div>
+                            <img src="../images/LinearRegression_TrainData.png" alt="Linear Regression Training Data">
+                            <div class="figure-caption">Linear Regression (Training Data)</div>
+                        </div>
+                        <div>
+                            <img src="../images/LinearRegression_TestData.png" alt="Linear Regression Test Data">
+                            <div class="figure-caption">Linear Regression (Test Data)</div>
+                        </div>
+                    </div>
+                    <div class="error-results">
+                        <p><strong>Linear Regression + Pocket:</strong></p>
+                        <p>\( E_{\text{in}} = 2.56\% \)</p>
+                        <p>\( E_{\text{out}} = 2.83\% \)</p>
+                    </div>
+
+                    <div class="img-row">
+                        <div>
+                            <img src="../images/LogisticRegression_TrainData.png" alt="Logistic Regression Training Data">
+                            <div class="figure-caption">Logistic Regression (Batch GD, Training)</div>
+                        </div>
+                        <div>
+                            <img src="../images/LogisticRegression_TestData.png" alt="Logistic Regression Test Data">
+                            <div class="figure-caption">Logistic Regression (Batch GD, Test)</div>
+                        </div>
+                    </div>
+                    <div class="error-results">
+                        <p><strong>Logistic Regression (Batch GD):</strong></p>
+                        <p>\( E_{\text{in}} = 1.92\% \)</p>
+                        <p>\( E_{\text{out}} = 2.12\% \)</p>
+                    </div>
+
+                    <div class="img-row">
+                        <div>
+                            <img src="../images/Stochastic_TrainData.png" alt="Stochastic Logistic Regression Training Data">
+                            <div class="figure-caption">Logistic Regression (Stochastic GD, Training)</div>
+                        </div>
+                        <div>
+                            <img src="../images/Stochastic_TestData.png" alt="Stochastic Logistic Regression Test Data">
+                            <div class="figure-caption">Logistic Regression (Stochastic GD, Test)</div>
+                        </div>
+                    </div>
+                    <div class="error-results">
+                        <p><strong>Logistic Regression (Stochastic GD):</strong></p>
+                        <p>\( E_{\text{in}} = 0.19\% \)</p>
+                        <p>\( E_{\text{out}} = 1.42\% \)</p>
+                    </div>
+                    <p>
+                        I was actually shocked by how well this algorithm performed. Running 500 cycles gave the best outcome—even more iterations (1000, 2000, or 5000) degraded performance. 
+                    </p>
+
+                    <h2>Bounded Error Interpretation</h2>
+                    <p>
+                        Using a conservative error bound of 0.05, we can establish confidence intervals for out-of-sample performance:
+                    </p>
+                    <p style="text-align: center; font-size: 1.1em; margin: 20px 0;">
+                        \( E_{\text{out}} \leq E_{\text{in}} + \delta \)<br>
+                        \( E_{\text{out}} \leq E_{\text{test}} + \delta \)
+                    </p>
+                    <p>
+                        For <strong>Stochastic GD</strong>:<br>
+                        With \( E_{\text{in}} = 0.0019 \), \( \delta = 0.05 \): \( E_{\text{out}} \leq 0.0519 \)<br>
+                        With \( E_{\text{test}} = 0.0142 \), \( \delta = 0.05 \): \( E_{\text{out}} \leq 0.0642 \)
+                    </p>
+
+                    <h2>Third Order Polynomial Feature Expansion</h2>
+                    <p>
+                        I also experimented with third-order polynomial features to potentially improve classification boundaries - this is a more complicated model that could potentially better fit the data. However, when using more complex models, it is important to be careful about overfitting.
+                    </p>
+                    <div class="code-container">
+                        <div class="code-header"><span>3rd Order Polynomial Features (Python)</span></div>
+                        <pre><code class="language-python">
+def poly3_features(f1, f2):
+    return np.column_stack([
+        np.ones_like(f1),      # bias
+        f1, f2,
+        f1**2, f1*f2, f2**2,
+        f1**3, (f1**2)*f2, f1*(f2**2), f2**3
+    ])
+
+x1_min, x1_max = f1.min() - 1, f1.max() + 1
+x2_min, x2_max = f2.min() - 1, f2.max() + 1
+xx, yy = np.meshgrid(np.linspace(x1_min, x1_max, 200), np.linspace(x2_min, x2_max, 200))
+
+# Flatten the grid to 1D arrays for feature expansion
+xx_flat = xx.ravel()
+yy_flat = yy.ravel()
+
+# Compute polynomial features for all grid points
+grid_poly = poly3_features(xx_flat, yy_flat)  # shape (N_grid, 10)
+grid_poly =np.hstack([np.ones((grid_poly.shape[0], 1)), grid_poly])#bias to make both matrixes same size
+Z = grid_poly @ w_final  # shape (N_grid,)
+Z = Z.reshape(xx.shape)
+
+#Linear Regression line for 3rd order
+#plt.contour(xx, yy, Z, levels=[0], colors='m', linewidths=2)
+                        </code></pre>
+                    </div>
+
+                    <div class="img-row">
+                        <div>
+                            <img src="../images/LinRegTrain_3rdOrder.png" alt="3rd Order Linear Regression Train">
+                            <div class="figure-caption">Linear + Pocket (3rd Order, Training)</div>
+                        </div>
+                        <div>
+                            <img src="../images/LinRegTest_3rdOrder.png" alt="3rd Order Linear Regression Test">
+                            <div class="figure-caption">Linear + Pocket (3rd Order, Test)</div>
+                        </div>
+                    </div>
+                    <div class="error-results">
+                        <p><strong>Linear + Pocket (3rd Order):</strong></p>
+                        <p>\( E_{\text{in}} = 0.19\% \)</p>
+                        <p>\( E_{\text{out}} = 2.59\% \)</p>
+                    </div>
+                    <div class="img-row">
+                        <div>
+                            <img src="../images/LogRegTrain_3rdOrder.png" alt="3rd Order Logistic Regression Train">
+                            <div class="figure-caption">Logistic Regression (3rd Order, Training)</div>
+                        </div>
+                        <div>
+                            <img src="../images/LogRegTest_3rdOrder.png" alt="3rd Order Logistic Regression Test">
+                            <div class="figure-caption">Logistic Regression (3rd Order, Test)</div>
+                        </div>
+                    </div>
+                    <div class="error-results">
+                        <p><strong>Logistic Regression (Batch GD, 3rd Order):</strong></p>
+                        <p>\( E_{\text{in}} = 0.51\% \)</p>
+                        <p>\( E_{\text{out}} = 2.12\% \)</p>
+                    </div>
+
+                    <div class="img-row">
+                        <div>
+                            <img src="../images/StochasticTrain_3rdOrder.png" alt="3rd Order Stochastic Logistic Regression Train">
+                            <div class="figure-caption">Stochastic Logistic Regression (3rd Order, Training)</div>
+                        </div>
+                        <div>
+                            <img src="../images/StochasticTest_3rdOrder.png" alt="3rd Order Stochastic Logistic Regression Test">
+                            <div class="figure-caption">Stochastic Logistic Regression (3rd Order, Test)</div>
+                        </div>
+                    </div>
+                    <div class="error-results">
+                        <p><strong>Stochastic Logistic Regression (3rd Order):</strong></p>
+                        <p>\( E_{\text{in}} = 0.32\% \)</p>
+                        <p>\( E_{\text{out}} = 1.42\% \)</p>
+                    </div>
+
+                    <h2>Conclusion</h2>
+                    <p>
+                        This project demonstrated the importance of using precise features and carefully selecting algorithms in machine learning. The stochastic gradient descent approach outperformed both linear and batch logistic regression overall, achieving remarkably low error rates. The third-order polynomial features showed mixed results—while they improved training performance in some cases, they also introduced slight overfitting in the Linear + Pocket model.
+                        This makes sense, as it's not like the third order polynomial is a cure-all - it's just another option for a model that could potentially better fit the data.
+                    </p>
+                    <p>
+                        Overall, this was a really cool project that was my first real application of Machine Learning to a real problem. I learned a lot and look forward to applying these concepts to more complex problems in the future. 
+                        If I were to consider expanding this project to distinguish between all digits, I would probably need to use a more complex model - more features, more complex algorithms, and I would probably separate it into several steps, with each step distinguishing between a different pair of digits.
+                    </p>
+
+                    <div class="project-navigation">
+                        <a href="../index.html" class="btn back-btn">Back to Projects</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Mark Zbarsky</p>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/mark-zbarsky-139697265/" target="_blank">LinkedIn</a>
+                <a href="mailto:markzb1483@gmail.com">Email</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
